@@ -1,0 +1,27 @@
+{
+  "data": {
+    "cover_data": {
+      "cover_title": "Feature",
+      "logo_image": "./src/images/scroll.png"
+    },
+    "cover_image": "./src/images/cover.jpg",
+    "social_site_settings": {
+      "facebook": {
+        "width": 2,
+        "height": 1,
+        "min_height": 246
+      },
+      "twitter": {
+        "width": 2,
+        "height":1,
+        "min_height": 506
+      },
+      "instagram": {
+        "width": 1,
+        "height": 1,
+        "min_height": 640
+      }
+    }
+  },
+  "mandatory_config": {}
+}
