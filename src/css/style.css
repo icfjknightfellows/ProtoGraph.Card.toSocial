@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Droid+Sans');
+
+.proto-cover-image{
+  /*height: 400px;*/
+  /*width: 700px;*/
+  position: relative;
+  /*max-height: 100%; */
+  /*max-width: 100%;*/
+  /*background:rgba(0,0,0,0.6);*/
+}
+
+.proto-transparent-layer {
+  height: 400px;
+  width: 700px;
+  top: 8px;
+  left: 8px;
+  /*background:rgba(255,255,255,0.3);*/
+  /*background:rgba(0,0,0,0.2);*/
+  position: absolute;
+}
+
+.proto-logo-image{
+ /* height: 37px;
+  width: 37px;*/
+  border-radius: 5px;
+  /*position: absolute; */
+  /*top: 20px;
+  padding-left: 10px;*/
+  display: inline-block;
+}
+
+.proto-quote-title {
+  color: white;
+  font-size: 16px;
+  padding-right: 10%;
+  font-family: 'Droid Sans', sans-serif;
+  vertical-align: top;
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background: rgba(0,0,0,0.5);
+  margin-left: 5px;
+  display: inline-block;
+}
+
+.proto-top-div{
+  position: absolute;
+  top: 20px;
+  padding-left: 15px;
+}
+
+.proto-tab {
+  padding: 5px 15px;
+  background: #ccc;
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 500px){
+  body {
+    margin: 0px
+  }
+  .proto-top-div{
+    position: absolute;
+    top: 10px;
+    padding-left: 5px;
+  }
+  .proto-logo-image{
+    height: 20px;
+    width: 20px;
+    border-radius: 5px;
+    display: inline-block;
+  }
+  .proto-quote-title {
+    font-size: 11px;
+    padding-right: 10%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: rgba(0,0,0,0.5);
+    margin-left: 3px;
+    display: inline-block;
+    border-radius: 3px;
+  }
+}

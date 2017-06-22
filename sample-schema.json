@@ -1,0 +1,113 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {},
+    "id": "http://example.com/example.json",
+    "properties": {
+        "data": {
+            "id": "/properties/data",
+            "properties": {
+                "cover_data": {
+                    "id": "/properties/data/properties/cover_data",
+                    "properties": {
+                        "cover_title": {
+                            "id": "/properties/data/properties/cover_data/properties/cover_title",
+                            "title": "Cover title",
+                            "type": "string"
+                        },
+                        "logo_image": {
+                            "id": "/properties/data/properties/cover_data/properties/logo_image",
+                            "title": "Logo image",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "cover_title",
+                        "logo_image"
+                    ],
+                    "type": "object"
+                },
+                "cover_image": {
+                    "id": "/properties/data/properties/cover_image",
+                    "title": "Cover image",
+                    "type": "string"
+                },
+                "social_site_settings": {
+                    "id": "/properties/data/properties/social_site_settings",
+                    "properties": {
+                        "facebook": {
+                            "id": "/properties/data/properties/social_site_settings/properties/facebook",
+                            "properties": {
+                                "height": {
+                                    "id": "/properties/data/properties/social_site_settings/properties/facebook/properties/height",
+                                    "type": "integer"
+                                },
+                                "min_height": {
+                                    "id": "/properties/data/properties/social_site_settings/properties/facebook/properties/min_height",
+                                    "type": "integer"
+                                },
+                                "width": {
+                                    "id": "/properties/data/properties/social_site_settings/properties/facebook/properties/width",
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "instagram": {
+                            "id": "/properties/data/properties/social_site_settings/properties/instagram",
+                            "properties": {
+                                "height": {
+                                    "id": "/properties/data/properties/social_site_settings/properties/instagram/properties/height",
+                                    "type": "integer"
+                                },
+                                "min_height": {
+                                    "id": "/properties/data/properties/social_site_settings/properties/instagram/properties/min_height",
+                                    "type": "integer"
+                                },
+                                "width": {
+                                    "id": "/properties/data/properties/social_site_settings/properties/instagram/properties/width",
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "twitter": {
+                            "id": "/properties/data/properties/social_site_settings/properties/twitter",
+                            "properties": {
+                                "height": {
+                                    "id": "/properties/data/properties/social_site_settings/properties/twitter/properties/height",
+                                    "type": "integer"
+                                },
+                                "min_height": {
+                                    "id": "/properties/data/properties/social_site_settings/properties/twitter/properties/min_height",
+                                    "type": "integer"
+                                },
+                                "width": {
+                                    "id": "/properties/data/properties/social_site_settings/properties/twitter/properties/width",
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "required": [
+                "cover_image",
+                "cover_data"
+            ],
+            "type": "object"
+        },
+        "mandatory_config": {
+            "id": "/properties/mandatory_config",
+            "properties": {},
+            "type": "object",
+            "title": "Mandatory Config"
+        }
+    },
+    "required": [
+        "mandatory_config",
+        "data"
+    ],
+    "type": "object"
+}
