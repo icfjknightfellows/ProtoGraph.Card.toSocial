@@ -15,7 +15,6 @@ export default class ShareCard extends React.Component {
       schemaJSON: undefined,
       // configSchemaJSON: undefined,
       // configJSON: {},
-      oasisObj: {},
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined,
       cover_data: {},
