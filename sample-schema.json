@@ -9,14 +9,25 @@
                 "cover_data": {
                     "id": "/properties/data/properties/cover_data",
                     "properties": {
+                        "logo_image": {
+                            "title": "Logo image",
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "default": "./src/images/scroll.png",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "id": "/properties/data/properties/cover_data/properties/logo_image",
+                                    "title": "Upload an image",
+                                    "type": "string",
+                                    "format": "data-url"
+                                }
+                            }
+                        },
                         "cover_title": {
+                            "default": "Feature",
+                            "description": "An explanation about the purpose of this instance.",
                             "id": "/properties/data/properties/cover_data/properties/cover_title",
                             "title": "Cover title",
-                            "type": "string"
-                        },
-                        "logo_image": {
-                            "id": "/properties/data/properties/cover_data/properties/logo_image",
-                            "title": "Logo image",
                             "type": "string"
                         }
                     },
@@ -26,10 +37,35 @@
                     ],
                     "type": "object"
                 },
-                "cover_image": {
-                    "id": "/properties/data/properties/cover_image",
-                    "title": "Cover image",
-                    "type": "string"
+                "fb_image": {
+                    "title": "Facebook / Twitter cover image",
+                    "type": "object",
+                    "properties": {
+                        "image": {
+                            "default": "./src/images/cover.jpg",
+                            "description": "An explanation about the purpose of this instance.",
+                            "id": "/properties/data/properties/fb_image",
+                            "title": "Upload an image",
+                            "type": "image",
+                            "ratio": "2/1",
+                            "utype": "file"
+                        }
+                    }
+                },
+                "instagram_image": {
+                    "title": "Instagram cover image",
+                    "type": "object",
+                    "properties": {
+                        "image": {
+                            "default": "./src/images/cover.jpg",
+                            "description": "An explanation about the purpose of this instance.",
+                            "id": "/properties/data/properties/instagram_image",
+                            "title": "Upload an image",
+                            "type": "image",
+                            "ratio": "1/1",
+                            "utype": "file"
+                        }
+                    }
                 },
                 "social_site_settings": {
                     "id": "/properties/data/properties/social_site_settings",
@@ -38,15 +74,24 @@
                             "id": "/properties/data/properties/social_site_settings/properties/facebook",
                             "properties": {
                                 "height": {
+                                    "default": 1,
+                                    "description": "An explanation about the purpose of this instance.",
                                     "id": "/properties/data/properties/social_site_settings/properties/facebook/properties/height",
+                                    "title": "The Height Schema",
                                     "type": "integer"
                                 },
                                 "min_height": {
+                                    "default": 246,
+                                    "description": "An explanation about the purpose of this instance.",
                                     "id": "/properties/data/properties/social_site_settings/properties/facebook/properties/min_height",
+                                    "title": "The Min_height Schema",
                                     "type": "integer"
                                 },
                                 "width": {
+                                    "default": 2,
+                                    "description": "An explanation about the purpose of this instance.",
                                     "id": "/properties/data/properties/social_site_settings/properties/facebook/properties/width",
+                                    "title": "The Width Schema",
                                     "type": "integer"
                                 }
                             },
@@ -56,15 +101,24 @@
                             "id": "/properties/data/properties/social_site_settings/properties/instagram",
                             "properties": {
                                 "height": {
+                                    "default": 1,
+                                    "description": "An explanation about the purpose of this instance.",
                                     "id": "/properties/data/properties/social_site_settings/properties/instagram/properties/height",
+                                    "title": "The Height Schema",
                                     "type": "integer"
                                 },
                                 "min_height": {
+                                    "default": 640,
+                                    "description": "An explanation about the purpose of this instance.",
                                     "id": "/properties/data/properties/social_site_settings/properties/instagram/properties/min_height",
+                                    "title": "The Min_height Schema",
                                     "type": "integer"
                                 },
                                 "width": {
+                                    "default": 1,
+                                    "description": "An explanation about the purpose of this instance.",
                                     "id": "/properties/data/properties/social_site_settings/properties/instagram/properties/width",
+                                    "title": "The Width Schema",
                                     "type": "integer"
                                 }
                             },
@@ -74,15 +128,24 @@
                             "id": "/properties/data/properties/social_site_settings/properties/twitter",
                             "properties": {
                                 "height": {
+                                    "default": 1,
+                                    "description": "An explanation about the purpose of this instance.",
                                     "id": "/properties/data/properties/social_site_settings/properties/twitter/properties/height",
+                                    "title": "The Height Schema",
                                     "type": "integer"
                                 },
                                 "min_height": {
+                                    "default": 506,
+                                    "description": "An explanation about the purpose of this instance.",
                                     "id": "/properties/data/properties/social_site_settings/properties/twitter/properties/min_height",
+                                    "title": "The Min_height Schema",
                                     "type": "integer"
                                 },
                                 "width": {
+                                    "default": 2,
+                                    "description": "An explanation about the purpose of this instance.",
                                     "id": "/properties/data/properties/social_site_settings/properties/twitter/properties/width",
+                                    "title": "The Width Schema",
                                     "type": "integer"
                                 }
                             },
@@ -93,8 +156,8 @@
                 }
             },
             "required": [
-                "cover_image",
-                "cover_data"
+                "fb_image",
+                "instagram_image"
             ],
             "type": "object"
         },

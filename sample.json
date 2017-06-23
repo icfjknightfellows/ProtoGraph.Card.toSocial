@@ -4,7 +4,8 @@
       "cover_title": "Feature",
       "logo_image": "./src/images/scroll.png"
     },
-    "cover_image": "./src/images/cover.jpg",
+    "fb_image": "./src/images/cover.jpg",
+    "instagram_image": "./src/images/cover.jpg",
     "social_site_settings": {
       "facebook": {
         "width": 2,
