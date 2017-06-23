@@ -42,13 +42,11 @@
                     "type": "object",
                     "properties": {
                         "image": {
-                            "default": "./src/images/cover.jpg",
                             "description": "An explanation about the purpose of this instance.",
                             "id": "/properties/data/properties/fb_image",
                             "title": "Upload an image",
                             "type": "image",
-                            "ratio": "2/1",
-                            "utype": "file"
+                            "ratio": "2/1"
                         }
                     }
                 },
@@ -57,13 +55,11 @@
                     "type": "object",
                     "properties": {
                         "image": {
-                            "default": "./src/images/cover.jpg",
                             "description": "An explanation about the purpose of this instance.",
                             "id": "/properties/data/properties/instagram_image",
                             "title": "Upload an image",
                             "type": "image",
-                            "ratio": "1/1",
-                            "utype": "file"
+                            "ratio": "1/1"
                         }
                     }
                 },

@@ -129,8 +129,10 @@ export default class ShareCard extends React.Component {
     } else {
       const data = this.state.dataJSON,
         social_site_settings = this.state.dataJSON.card_data.data.social_site_settings;
+
       let styles,
         cover_image,
+        cover_title = data.card_data.data.cover_data.cover_title,
         logo_image = typeof data.card_data.data.cover_data.logo_image === "object" ? data.card_data.data.cover_data.logo_image.image : data.card_data.data.cover_data.logo_image;
 
       if(this.state.step === 3) {
@@ -148,10 +150,16 @@ export default class ShareCard extends React.Component {
       }
       return (
         <div>
-          <img className="proto-cover-image" style = {styles} src = {cover_image}/>
+          {cover_image &&
+            <img className="proto-cover-image" style = {styles} src = {cover_image}/>
+          }
           <div className = "proto-top-div">
-            <img className="proto-logo-image" src = {logo_image} />
-            <div className="proto-quote-title">{data.card_data.data.cover_data.cover_title}</div>
+            {logo_image &&
+              <img className="proto-logo-image" src = {logo_image} />
+            }
+            {cover_title &&
+              <div className="proto-quote-title">{cover_title}</div>
+            }
           </div>
         </div>
       )
@@ -249,7 +257,7 @@ export default class ShareCard extends React.Component {
             <button type="submit" className="btn btn-info">{this.showButtonText()}</button>
             </Form>
           </div>
-          <div className = "col-sm-6" id="proto_share_card_div">
+          <div className = "col-sm-6 proto-share-card-div" id="proto_share_card_div">
             {this.renderLaptop()}
           </div>
         </div>

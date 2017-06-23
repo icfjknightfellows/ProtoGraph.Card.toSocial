@@ -57,6 +57,14 @@
   margin-right: 10px;
 }
 
+.proto-share-card-div {
+  max-height: 100%;
+  background: #EFEFEF;
+  overflow: auto;
+  min-height: 300px;
+  /*padding: 0px;*/
+}
+
 @media only screen and (max-width: 500px){
   body {
     margin: 0px
