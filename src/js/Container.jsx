@@ -72,7 +72,7 @@ export default class ShareCard extends React.Component {
           height: social_site_settings.instagram.min_height
         }
       } else if(this.props.mode === "facebook" || this.props.mode === "twitter") {
-        cover_image = typeof data.card_data.data.cover_data.fb_image === "object" ? data.card_data.data.cover_data.fb_image.image : data.card_data.data.cover_data.fb_image;
+        cover_image = typeof data.card_data.data.cover_data.fb_image === "object" ? data.card_data.data.cover_data.fb_image.image : undefined;
         styles = {
           width: social_site_settings.twitter.min_height * social_site_settings.twitter.width,
           height: social_site_settings.twitter.min_height

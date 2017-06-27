@@ -73,19 +73,29 @@ export default class EditShareCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       return (
-        <div className="col-sm-12">
-          <div className = "col-sm-6" id="proto_share_form_div">
+        <div>
+          <div className = "protograph_col_6" id="proto_share_form_div">
             <JSONSchemaForm schema = {this.state.schemaJSON}
             onChange = {((e) => this.onChangeHandler(e))}
             formData = {this.state.dataJSON.card_data.data.cover_data}>
             </JSONSchemaForm>
           </div>
-          <div className = "col-sm-6 proto-share-card-div" id="proto_share_card_div">
-            <div className ="ui three item menu">
-              <a className ="item active" id = "facebook" onClick = {this.handleClick}>Facebook</a>
-              <a className ="item" id = "twitter" onClick = {this.handleClick}>Twitter</a>
-              <a className ="item" id = "instagram" onClick = {this.handleClick}>Instagram</a>
+          <div className = "protograph_col_6 proto-share-card-div" id="proto_share_card_div">
+            <div className="ui compact menu">
+              <a className="item active" id = "facebook" onClick = {this.handleClick}>
+                <i className="facebook square icon"></i>
+                Facebook
+              </a>
+              <a className="item" id = "twitter" onClick = {this.handleClick}>
+                <i className="twitter square icon"></i>
+                Twitter
+              </a>
+              <a className="item" id = "instagram" onClick = {this.handleClick}>
+                <i className="instagram icon"></i>
+                Instagram
+              </a>
             </div>
+
             <div className = "preview">
               <ShareCard
                 mode={this.state.type}
