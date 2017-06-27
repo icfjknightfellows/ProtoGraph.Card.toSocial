@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Form from 'react-jsonschema-form';
+// import Form from 'react-jsonschema-form';
+import Form from '../../lib/js/react-jsonschema-form.js';
 
 export default class ShareCard extends React.Component {
   constructor(props) {
@@ -13,13 +14,8 @@ export default class ShareCard extends React.Component {
         configs: {}
       },
       schemaJSON: undefined,
-      // configSchemaJSON: undefined,
-      // configJSON: {},
       optionalConfigJSON: {},
-      optionalConfigSchemaJSON: undefined,
-      cover_data: {},
-      FBImage: "",
-      InstagramImage: ""
+      optionalConfigSchemaJSON: undefined
     }
   }
 
@@ -29,11 +25,9 @@ export default class ShareCard extends React.Component {
 
   componentDidMount() {
     // get sample json data based on type i.e string or object
-    console.log("dataURL", this.props.dataURL);
     if (typeof this.props.dataURL === "string"){
       axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
         .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
-          console.log("card", card);
           this.setState({
             dataJSON: {
               card_data: card.data,
@@ -41,12 +35,7 @@ export default class ShareCard extends React.Component {
             },
             schemaJSON: schema.data,
             optionalConfigJSON: opt_config.data,
-            optionalConfigSchemaJSON: opt_config_schema.data,
-            // configSchemaJSON: config_schema.data,
-            // configJSON: config.data.optional,
-            // cover_data: card.data.data.cover_data,
-            FBImage: card.data.data.cover_image,
-            InstagramImage: card.data.data.cover_image
+            optionalConfigSchemaJSON: opt_config_schema.data
           });
         }));
     }
@@ -70,37 +59,48 @@ export default class ShareCard extends React.Component {
     console.log(formData, this.state.step, "...................")
     switch (this.state.step) {
       case 1:
+        this.setState((prevStep, prop) => {
+          let dataJSON = prevStep.dataJSON;
+          dataJSON.card_data.data.cover_data = formData;
+          return {
+            dataJSON: dataJSON
+          }
+        });
         break;
       case 2:
         this.setState((prevStep, prop) => {
           let dataJSON = prevStep.dataJSON;
-          dataJSON.card_data.data.cover_data = formData;
-          console.log("dataJSON", dataJSON);
+          dataJSON.card_data.data.fb_image = formData;
           return {
             dataJSON: dataJSON
           }
         });
         break;
       case 3:
-        this.setState({
-          FBImage: formData
-        })
+        this.setState((prevStep, prop) => {
+          let dataJSON = prevStep.dataJSON;
+          dataJSON.card_data.data.instagram_image = formData;
+          return {
+            dataJSON: dataJSON
+          }
+        });
         break;
       case 4:
-        this.setState({
-          InstagramImage: formData
-        })
-        break;
-      case 5:
-        this.setState({
-          configJSON: formData
-        })
+        this.setState((prevStep, prop) => {
+          let dataJSON = prevStep.dataJSON;
+          dataJSON.configs = formData;
+          return {
+            dataJSON: dataJSON,
+            optionalConfigJSON: formData
+          }
+        });
         break;
     }
   }
 
   onSubmitHandler({formData}) {
-    // console.log(formData, "on Submit =======================")
+    // console.log(formData, "on Submit =======================");
+    console.log("dataJSON", this.state.dataJSON);
     switch(this.state.step) {
       case 1:
         this.setState({
@@ -118,35 +118,32 @@ export default class ShareCard extends React.Component {
         });
         break;
       case 4:
-        this.setState({
-          step: 5,
-          dataJSON: formData
-        });
-        break;
-      case 5:
         alert("The card is published");
         break;
     }
   }
 
   renderLaptop() {
+    // console.log("renderLaptop", this.state);
     if (this.state.schemaJSON === undefined ){
       return(<div>Loading</div>)
     } else {
-      console.log("state", this.state);
       const data = this.state.dataJSON,
         social_site_settings = this.state.dataJSON.card_data.data.social_site_settings;
-      let styles,
-        cover_image;
 
-      if(this.state.step === 4) {
-        cover_image = this.state.InstagramImage;
+      let styles,
+        cover_image,
+        cover_title = data.card_data.data.cover_data.cover_title,
+        logo_image = typeof data.card_data.data.cover_data.logo_image === "object" ? data.card_data.data.cover_data.logo_image.image : data.card_data.data.cover_data.logo_image;
+
+      if((this.props.mode === "edit" && this.state.step === 3) || this.props.mode === "instagram") {
+        cover_image = typeof data.card_data.data.instagram_image === "object" ? data.card_data.data.instagram_image.image : data.card_data.data.instagram_image;
         styles = {
           width: social_site_settings.instagram.min_height * social_site_settings.instagram.width,
           height: social_site_settings.instagram.min_height
         }
       } else {
-        cover_image = this.state.FBImage;
+        cover_image = typeof data.card_data.data.fb_image === "object" ? data.card_data.data.fb_image.image : data.card_data.data.fb_image;
         styles = {
           width: social_site_settings.twitter.min_height * social_site_settings.twitter.width,
           height: social_site_settings.twitter.min_height
@@ -154,10 +151,16 @@ export default class ShareCard extends React.Component {
       }
       return (
         <div>
-          <img className="proto-cover-image" style = {styles} src = {cover_image}/>
+          {cover_image &&
+            <img className="proto-cover-image" style = {styles} src = {cover_image}/>
+          }
           <div className = "proto-top-div">
-            <img className="proto-logo-image" src = {data.card_data.data.cover_data.logo_image} />
-            <div className="proto-quote-title">{data.card_data.data.cover_data.cover_title}</div>
+            {logo_image &&
+              <img className="proto-logo-image" src = {logo_image} />
+            }
+            {cover_title &&
+              <div className="proto-quote-title">{cover_title}</div>
+            }
           </div>
         </div>
       )
@@ -165,22 +168,19 @@ export default class ShareCard extends React.Component {
   }
 
   renderSchemaJSON() {
-    console.log(this.state.step, "renderSchemaJSON", this.state)
+    // console.log(this.state.step, "renderSchemaJSON", this.state)
     switch(this.state.step){
       case 1:
-        return this.state.schemaJSON.properties.mandatory_config;
-        break;
-      case 2:
         return this.state.schemaJSON.properties.data.properties.cover_data;
         break;
+      case 2:
+        return this.state.schemaJSON.properties.data.properties.fb_image;
+        break;
       case 3:
-        return this.state.schemaJSON.properties.data.properties.cover_image;
+        return this.state.schemaJSON.properties.data.properties.instagram_image;
         break;
       case 4:
-        return this.state.schemaJSON.properties.data.properties.cover_image;
-        break;
-      case 5:
-        return this.state.optionalConfigSchemaJSON.properties.optional;
+        return this.state.optionalConfigSchemaJSON;
         break;
     }
   }
@@ -188,18 +188,15 @@ export default class ShareCard extends React.Component {
   renderFormData() {
     switch(this.state.step) {
       case 1:
-        return this.state.dataJSON.card_data.mandatory_config;
-        break;
-      case 2:
         return this.state.dataJSON.card_data.data.cover_data;
         break;
+      case 2:
+        return this.state.dataJSON.card_data.data.fb_image;
+        break;
       case 3:
-        return this.state.FBImage;
+        return this.state.dataJSON.card_data.data.instagram_image;
         break;
       case 4:
-        return this.state.InstagramImage;
-        break;
-      case 5:
         return this.state.optionalConfigJSON;
         break;
     }
@@ -211,15 +208,12 @@ export default class ShareCard extends React.Component {
         return '';
         break;
       case 2:
-        return '< Back to Mandatory selection';
-        break;
-      case 3:
         return '< Back to cover data';
         break;
-      case 4:
+      case 3:
         return '< Back to FB/Twitter settings';
         break;
-      case 5:
+      case 4:
         return '< Back to Instagram settings';
         break;
     }
@@ -235,9 +229,6 @@ export default class ShareCard extends React.Component {
         return 'Proceed to next step';
         break;
       case 4:
-        return 'Proceed to next step';
-        break;
-      case 5:
         return 'Publish';
         break;
     }
@@ -248,7 +239,7 @@ export default class ShareCard extends React.Component {
     this.setState({
       step: prev_step
     })
-    console.log("show prev step", this.state.step)
+    // console.log("show prev step", this.state.step)
   }
 
   renderEdit() {
@@ -267,7 +258,7 @@ export default class ShareCard extends React.Component {
             <button type="submit" className="btn btn-info">{this.showButtonText()}</button>
             </Form>
           </div>
-          <div className = "col-sm-6" id="proto_share_card_div">
+          <div className = "col-sm-6 proto-share-card-div" id="proto_share_card_div">
             {this.renderLaptop()}
           </div>
         </div>
@@ -276,15 +267,14 @@ export default class ShareCard extends React.Component {
   }
 
   render() {
-    console.log(this.props.mode, "mode")
     switch(this.props.mode) {
-      case 'laptop' :
+      case 'facebook' :
         return this.renderLaptop();
         break;
-      case 'mobile' :
+      case 'instagram' :
         return this.renderLaptop();
         break;
-      case 'tablet' :
+      case 'twitter' :
         return this.renderLaptop();
         break;
       case 'edit' :
