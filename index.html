@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./dist/0.0.1/card.min.css">
     <link rel="stylesheet" type="text/css" href="./src/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" />
     <link rel="stylesheet" type="text/css" href="./lib/css/react-jsonschema-form.css">
   </head>
   <body>
@@ -19,7 +20,7 @@
     x.init({
       selector: document.querySelector('#share_div'),
       data_url: './sample.json',
-      schema_url: './sample-schema.json',
+      schema_url: './formschema.json',
       configuration_url: 'dist/0.0.1/configuration_sample.json', //will come from local folder
       configuration_schema_url: 'dist/0.0.1/configuration_schema.json' //will come from local folder
     });
