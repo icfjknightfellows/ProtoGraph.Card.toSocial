@@ -1,8 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Droid+Sans');
 
-.proto-cover-image{
-  /*height: 400px;*/
-  /*width: 700px;*/
+.proto-cover-fb{
+  height: 100% !important;
+  width: 475px !important;
+  position: relative;
+  /*max-height: 100%; */
+  /*max-width: 100%;*/
+  /*background:rgba(0,0,0,0.6);*/
+}
+.proto-cover-insta{
+  height: 475px !important;
+  width: 475px !important;
   position: relative;
   /*max-height: 100%; */
   /*max-width: 100%;*/
@@ -47,10 +55,12 @@
 
 .proto-top-div{
   position: absolute;
-  top: 20px;
-  padding-left: 15px;
+  top: 65px;
+  padding-left: 5px;
 }
-
+.form-container{
+  margin-top:20px;
+}
 .proto-tab {
   padding: 5px 15px;
   background: #ccc;
@@ -61,7 +71,7 @@
   max-height: 100%;
   background: #EFEFEF;
   overflow: auto;
-  min-height: 300px;
+  min-height: 512px;
   /*padding: 0px;*/
 }
 

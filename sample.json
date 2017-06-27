@@ -1,11 +1,11 @@
 {
   "data": {
     "cover_data": {
+      "cover_title": "",
       "logo_image": "",
-      "cover_title": ""
+      "fb_image": "",
+      "instagram_image": ""
     },
-    "fb_image": "",
-    "instagram_image": "",
     "social_site_settings": {
       "facebook": {
         "width": 2,

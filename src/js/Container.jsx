@@ -8,17 +8,23 @@ export default class ShareCard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      step: 1,
+      type: "",
       dataJSON: {
-        card_data: {},
-        configs: {}
+        card_data: {}
       },
       schemaJSON: undefined,
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined
     }
+    this.handleClick = this.handleClick.bind(this);
   }
-
+  handleClick(e){
+    console.log(e.target.id);
+    var id = e.target.id;
+    this.setState({
+      type:id
+    });
+  }
   exportData() {
     return this.state;
   }
@@ -28,6 +34,7 @@ export default class ShareCard extends React.Component {
     if (typeof this.props.dataURL === "string"){
       axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
         .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
+          console.log(card.data,".v.v.");
           this.setState({
             dataJSON: {
               card_data: card.data,
@@ -56,51 +63,18 @@ export default class ShareCard extends React.Component {
   }
 
   onChangeHandler({formData}) {
-    console.log(formData, this.state.step, "...................")
-    switch (this.state.step) {
-      case 1:
-        this.setState((prevStep, prop) => {
-          let dataJSON = prevStep.dataJSON;
-          dataJSON.card_data.data.cover_data = formData;
-          return {
-            dataJSON: dataJSON
-          }
-        });
-        break;
-      case 2:
-        this.setState((prevStep, prop) => {
-          let dataJSON = prevStep.dataJSON;
-          dataJSON.card_data.data.fb_image = formData;
-          return {
-            dataJSON: dataJSON
-          }
-        });
-        break;
-      case 3:
-        this.setState((prevStep, prop) => {
-          let dataJSON = prevStep.dataJSON;
-          dataJSON.card_data.data.instagram_image = formData;
-          return {
-            dataJSON: dataJSON
-          }
-        });
-        break;
-      case 4:
-        this.setState((prevStep, prop) => {
-          let dataJSON = prevStep.dataJSON;
-          dataJSON.configs = formData;
-          return {
-            dataJSON: dataJSON,
-            optionalConfigJSON: formData
-          }
-        });
-        break;
-    }
+    this.setState((prevStep, prop) => {
+      let dataJSON = prevStep.dataJSON;
+      dataJSON.card_data.data.cover_data = formData;
+      console.log(dataJSON,"vvV");
+      return {
+        dataJSON: dataJSON
+      }
+    });
   }
 
-  onSubmitHandler({formData}) {
-    // console.log(formData, "on Submit =======================");
-    console.log("dataJSON", this.state.dataJSON);
+ /* onSubmitHandler({formData}) {
+    // console.log(formData, "on Submit =======================")
     switch(this.state.step) {
       case 1:
         this.setState({
@@ -121,7 +95,7 @@ export default class ShareCard extends React.Component {
         alert("The card is published");
         break;
     }
-  }
+  }*/
 
   renderLaptop() {
     // console.log("renderLaptop", this.state);
@@ -130,20 +104,20 @@ export default class ShareCard extends React.Component {
     } else {
       const data = this.state.dataJSON,
         social_site_settings = this.state.dataJSON.card_data.data.social_site_settings;
-
+console.log(data,"...");
       let styles,
         cover_image,
         cover_title = data.card_data.data.cover_data.cover_title,
         logo_image = typeof data.card_data.data.cover_data.logo_image === "object" ? data.card_data.data.cover_data.logo_image.image : data.card_data.data.cover_data.logo_image;
 
-      if((this.props.mode === "edit" && this.state.step === 3) || this.props.mode === "instagram") {
-        cover_image = typeof data.card_data.data.instagram_image === "object" ? data.card_data.data.instagram_image.image : data.card_data.data.instagram_image;
+      if((this.props.mode === "edit" && this.state.step === 3) || this.props.mode === "instagram" || this.state.type === "instagram") {
+        cover_image = typeof data.card_data.data.cover_data.instagram_image === "object" ? data.card_data.data.cover_data.instagram_image.image : data.card_data.data.cover_data.instagram_image;
         styles = {
           width: social_site_settings.instagram.min_height * social_site_settings.instagram.width,
           height: social_site_settings.instagram.min_height
         }
-      } else {
-        cover_image = typeof data.card_data.data.fb_image === "object" ? data.card_data.data.fb_image.image : data.card_data.data.fb_image;
+      } else if(this.state.type === "facebook" || this.state.type === "twitter") {
+        cover_image = typeof data.card_data.data.cover_data.fb_image === "object" ? data.card_data.data.cover_data.fb_image.image : data.card_data.cover_data.data.fb_image;
         styles = {
           width: social_site_settings.twitter.min_height * social_site_settings.twitter.width,
           height: social_site_settings.twitter.min_height
@@ -152,7 +126,7 @@ export default class ShareCard extends React.Component {
       return (
         <div>
           {cover_image &&
-            <img className="proto-cover-image" style = {styles} src = {cover_image}/>
+            (this.state.type === "instagram") ? <img className="proto-cover-insta" style = {styles} src = {cover_image}/> : <img className="proto-cover-fb" style = {styles} src = {cover_image}/>
           }
           <div className = "proto-top-div">
             {logo_image &&
@@ -167,23 +141,23 @@ export default class ShareCard extends React.Component {
     }
   }
 
-  renderSchemaJSON() {
+  /*renderSchemaJSON() {
     // console.log(this.state.step, "renderSchemaJSON", this.state)
     switch(this.state.step){
       case 1:
-        return this.state.schemaJSON.properties.data.properties.cover_data;
+        return this.state.schemaJSON.properties.cover_data;
         break;
       case 2:
-        return this.state.schemaJSON.properties.data.properties.fb_image;
+        return this.state.schemaJSON.properties.fb_image;
         break;
       case 3:
-        return this.state.schemaJSON.properties.data.properties.instagram_image;
+        return this.state.schemaJSON.properties.instagram_image;
         break;
       case 4:
         return this.state.optionalConfigSchemaJSON;
         break;
     }
-  }
+  }*/
 
   renderFormData() {
     switch(this.state.step) {
@@ -244,22 +218,29 @@ export default class ShareCard extends React.Component {
 
   renderEdit() {
     // console.log(this.state.dataJSON, this.props, this.state.schemaJSON, "schema data")
+        console.log(this.state.schemaJSON);
     if (this.state.schemaJSON === undefined) {
       return(<div>Loading</div>)
     } else {
       return (
         <div className="col-sm-12">
           <div className = "col-sm-6" id="proto_share_form_div">
-            <Form schema = {this.renderSchemaJSON()}
-            onSubmit = {((e) => this.onSubmitHandler(e))}
+            <Form schema = {this.state.schemaJSON}
             onChange = {((e) => this.onChangeHandler(e))}
-            formData = {this.renderFormData()}>
+            formData = {this.state.dataJSON.card_data.data.cover_data}>
             <a id="proto_prev_link" onClick = {((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
-            <button type="submit" className="btn btn-info">{this.showButtonText()}</button>
+            <button type="submit" className="btn btn-info">{this.showButtonText() ? this.showButtonText() :"Submit"}</button>
             </Form>
           </div>
           <div className = "col-sm-6 proto-share-card-div" id="proto_share_card_div">
-            {this.renderLaptop()}
+            <div className ="ui three item menu">
+              <a className ="item active" id = "facebook" onClick = {this.handleClick}>Facebook</a>
+              <a className ="item" id = "twitter" onClick = {this.handleClick}>Twitter</a>
+              <a className ="item" id = "instagram" onClick = {this.handleClick}>Instagram</a>
+            </div>
+            <div className = "preview">
+              {this.renderLaptop()}
+            </div>
           </div>
         </div>
       )
