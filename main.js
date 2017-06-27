@@ -13,14 +13,6 @@ ProtoGraph.Card.toShare.prototype.init = function (options) {
   this.options = options;
 }
 
-ProtoGraph.Card.toShare.prototype.setData = function (data) {
-  this.data = data;
-}
-
-ProtoGraph.Card.toShare.prototype.getData = function (data) {
-  return this.containerInstance.exportData();
-}
-
 ProtoGraph.Card.toShare.prototype.renderFacebookCard = function (data) {
   this.mode = 'facebook';
   generateShareCard.call(this, data);
