@@ -8,9 +8,10 @@
             "properties": {
                 "cover_data": {
                     "id": "/properties/data/properties/cover_data",
+                    "title": "Cover data",
                     "properties": {
                         "logo_image": {
-                            "title": "Logo image",
+                            "title": "",
                             "type": "object",
                             "properties": {
                                 "image": {
@@ -21,7 +22,8 @@
                                     "type": "string",
                                     "format": "data-url"
                                 }
-                            }
+                            },
+                            "required": ["image"]
                         },
                         "cover_title": {
                             "default": "Feature",

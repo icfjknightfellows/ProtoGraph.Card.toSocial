@@ -22,7 +22,7 @@ ProtoGraph.Card.toShare.prototype.getData = function (data) {
 }
 
 ProtoGraph.Card.toShare.prototype.renderFacebookCard = function (data) {
-  this.mode = 'fb';
+  this.mode = 'facebook';
   generateShareCard.call(this, data);
 }
 

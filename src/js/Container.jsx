@@ -100,7 +100,8 @@ export default class ShareCard extends React.Component {
   }
 
   onSubmitHandler({formData}) {
-    // console.log(formData, "on Submit =======================")
+    // console.log(formData, "on Submit =======================");
+    console.log("dataJSON", this.state.dataJSON);
     switch(this.state.step) {
       case 1:
         this.setState({
@@ -124,6 +125,7 @@ export default class ShareCard extends React.Component {
   }
 
   renderLaptop() {
+    // console.log("renderLaptop", this.state);
     if (this.state.schemaJSON === undefined ){
       return(<div>Loading</div>)
     } else {
@@ -135,7 +137,7 @@ export default class ShareCard extends React.Component {
         cover_title = data.card_data.data.cover_data.cover_title,
         logo_image = typeof data.card_data.data.cover_data.logo_image === "object" ? data.card_data.data.cover_data.logo_image.image : data.card_data.data.cover_data.logo_image;
 
-      if(this.state.step === 3) {
+      if((this.props.mode === "edit" && this.state.step === 3) || this.props.mode === "instagram") {
         cover_image = typeof data.card_data.data.instagram_image === "object" ? data.card_data.data.instagram_image.image : data.card_data.data.instagram_image;
         styles = {
           width: social_site_settings.instagram.min_height * social_site_settings.instagram.width,
@@ -267,13 +269,13 @@ export default class ShareCard extends React.Component {
 
   render() {
     switch(this.props.mode) {
-      case 'laptop' :
+      case 'facebook' :
         return this.renderLaptop();
         break;
-      case 'mobile' :
+      case 'instagram' :
         return this.renderLaptop();
         break;
-      case 'tablet' :
+      case 'twitter' :
         return this.renderLaptop();
         break;
       case 'edit' :
