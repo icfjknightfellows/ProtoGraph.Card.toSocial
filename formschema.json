@@ -22,7 +22,8 @@
               "title": "Cover title",
               "description": "An explanation about the purpose of this instance.",
               "default": "Feature",
-              "id": "/properties/data/properties/cover_data/properties/cover_title"
+              "id": "/properties/data/properties/cover_data/properties/cover_title",
+              "default":"Feature"
             },
             "fb_image": {
               "type": "object",

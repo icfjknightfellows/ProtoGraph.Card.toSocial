@@ -13,7 +13,6 @@ export default class ShareCard extends React.Component {
         card_data: {}
       },
       schemaJSON: undefined,
-      oasisObj: {},
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined
     }
@@ -99,6 +98,7 @@ export default class ShareCard extends React.Component {
   }*/
 
   renderLaptop() {
+    // console.log("renderLaptop", this.state);
     if (this.state.schemaJSON === undefined ){
       return(<div>Loading</div>)
     } else {
@@ -109,8 +109,8 @@ console.log(data,"...");
         cover_image,
         cover_title = data.card_data.data.cover_data.cover_title,
         logo_image = typeof data.card_data.data.cover_data.logo_image === "object" ? data.card_data.data.cover_data.logo_image.image : data.card_data.data.cover_data.logo_image;
-  
-      if(this.state.type === "instagram") {
+
+      if((this.props.mode === "edit" && this.state.step === 3) || this.props.mode === "instagram" || this.state.type === "instagram") {
         cover_image = typeof data.card_data.data.cover_data.instagram_image === "object" ? data.card_data.data.cover_data.instagram_image.image : data.card_data.data.cover_data.instagram_image;
         styles = {
           width: social_site_settings.instagram.min_height * social_site_settings.instagram.width,
@@ -229,7 +229,7 @@ console.log(data,"...");
             onChange = {((e) => this.onChangeHandler(e))}
             formData = {this.state.dataJSON.card_data.data.cover_data}>
             <a id="proto_prev_link" onClick = {((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
-            <button type="submit" className="btn btn-info">{this.showButtonText()}</button>
+            <button type="submit" className="btn btn-info">{this.showButtonText() ? this.showButtonText() :"Submit"}</button>
             </Form>
           </div>
           <div className = "col-sm-6 proto-share-card-div" id="proto_share_card_div">
@@ -249,13 +249,13 @@ console.log(data,"...");
 
   render() {
     switch(this.props.mode) {
-      case 'laptop' :
+      case 'facebook' :
         return this.renderLaptop();
         break;
-      case 'mobile' :
+      case 'instagram' :
         return this.renderLaptop();
         break;
-      case 'tablet' :
+      case 'twitter' :
         return this.renderLaptop();
         break;
       case 'edit' :
