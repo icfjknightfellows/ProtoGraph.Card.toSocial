@@ -28,8 +28,10 @@
     "webpack-dev-server": "^1.16.2"
   },
   "scripts": {
-    "build": "webpack",
-    "start": "webpack-dev-server --public --host 0.0.0.0"
+    "build": "npm run build:std && npm run build:edit",
+    "start": "webpack-dev-server --public --host 0.0.0.0",
+    "build:std": "NODE_ENV=production webpack --config webpack.config.js",
+    "build:edit": "NODE_ENV=production webpack --config webpack.config.edit.js"
   },
   "author": "",
   "license": "ISC"

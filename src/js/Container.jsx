@@ -1,37 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-// import Form from 'react-jsonschema-form';
-import Form from '../../lib/js/react-jsonschema-form.js';
 
 export default class ShareCard extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      type: "",
+
+    let stateVar = {
       dataJSON: {
         card_data: {}
       },
       schemaJSON: undefined,
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined
+    };
+
+    if (this.props.dataJSON) {
+      stateVar.dataJSON = this.props.dataJSON;
     }
-    this.handleClick = this.handleClick.bind(this);
-  }
-  handleClick(e){
-    console.log(e.target.id);
-    var id = e.target.id;
-    this.setState({
-      type:id
-    });
-  }
-  exportData() {
-    return this.state;
+
+    if (this.props.schemaJSON) {
+      stateVar.schemaJSON = this.props.schemaJSON;
+    }
+
+    if (this.props.optionalConfigJSON) {
+      stateVar.optionalConfigJSON = this.props.optionalConfigJSON;
+    }
+
+    if (this.props.optionalConfigSchemaJSON) {
+      stateVar.optionalConfigSchemaJSON = this.props.optionalConfigSchemaJSON;
+    }
+
+    this.state = stateVar;
   }
 
   componentDidMount() {
     // get sample json data based on type i.e string or object
-    if (typeof this.props.dataURL === "string"){
+    if (!this.state.schemaJSON){
       axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
         .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
           console.log(card.data,".v.v.");
@@ -48,54 +53,6 @@ export default class ShareCard extends React.Component {
     }
   }
 
-  getScreenSize() {
-    let w = window,
-      d = document,
-      e = d.documentElement,
-      g = d.getElementsByTagName('body')[0],
-      width = w.innerWidth || e.clientWidth || g.clientWidth,
-      height = w.innerHeight|| e.clientHeight|| g.clientHeight;
-
-    return {
-      width: width,
-      height: height
-    };
-  }
-
-  onChangeHandler({formData}) {
-    this.setState((prevStep, prop) => {
-      let dataJSON = prevStep.dataJSON;
-      dataJSON.card_data.data.cover_data = formData;
-      console.log(dataJSON,"vvV");
-      return {
-        dataJSON: dataJSON
-      }
-    });
-  }
-
- /* onSubmitHandler({formData}) {
-    // console.log(formData, "on Submit =======================")
-    switch(this.state.step) {
-      case 1:
-        this.setState({
-          step: 2
-        });
-        break;
-      case 2:
-        this.setState({
-          step: 3
-        });
-        break;
-      case 3:
-        this.setState({
-          step: 4
-        });
-        break;
-      case 4:
-        alert("The card is published");
-        break;
-    }
-  }*/
 
   renderLaptop() {
     // console.log("renderLaptop", this.state);
@@ -104,20 +61,18 @@ export default class ShareCard extends React.Component {
     } else {
       const data = this.state.dataJSON,
         social_site_settings = this.state.dataJSON.card_data.data.social_site_settings;
-console.log(data,"...");
       let styles,
         cover_image,
         cover_title = data.card_data.data.cover_data.cover_title,
         logo_image = typeof data.card_data.data.cover_data.logo_image === "object" ? data.card_data.data.cover_data.logo_image.image : data.card_data.data.cover_data.logo_image;
-
-      if((this.props.mode === "edit" && this.state.step === 3) || this.props.mode === "instagram" || this.state.type === "instagram") {
+      if(this.props.mode === "instagram") {
         cover_image = typeof data.card_data.data.cover_data.instagram_image === "object" ? data.card_data.data.cover_data.instagram_image.image : data.card_data.data.cover_data.instagram_image;
         styles = {
           width: social_site_settings.instagram.min_height * social_site_settings.instagram.width,
           height: social_site_settings.instagram.min_height
         }
-      } else if(this.state.type === "facebook" || this.state.type === "twitter") {
-        cover_image = typeof data.card_data.data.cover_data.fb_image === "object" ? data.card_data.data.cover_data.fb_image.image : data.card_data.cover_data.data.fb_image;
+      } else if(this.props.mode === "facebook" || this.props.mode === "twitter") {
+        cover_image = typeof data.card_data.data.cover_data.fb_image === "object" ? data.card_data.data.cover_data.fb_image.image : data.card_data.data.cover_data.fb_image;
         styles = {
           width: social_site_settings.twitter.min_height * social_site_settings.twitter.width,
           height: social_site_settings.twitter.min_height
@@ -126,7 +81,7 @@ console.log(data,"...");
       return (
         <div>
           {cover_image &&
-            (this.state.type === "instagram") ? <img className="proto-cover-insta" style = {styles} src = {cover_image}/> : <img className="proto-cover-fb" style = {styles} src = {cover_image}/>
+            (this.props.mode === "instagram") ? <img className="proto-cover-insta" style = {styles} src = {cover_image}/> : <img className="proto-cover-fb" style = {styles} src = {cover_image}/>
           }
           <div className = "proto-top-div">
             {logo_image &&
@@ -135,112 +90,6 @@ console.log(data,"...");
             {cover_title &&
               <div className="proto-quote-title">{cover_title}</div>
             }
-          </div>
-        </div>
-      )
-    }
-  }
-
-  /*renderSchemaJSON() {
-    // console.log(this.state.step, "renderSchemaJSON", this.state)
-    switch(this.state.step){
-      case 1:
-        return this.state.schemaJSON.properties.cover_data;
-        break;
-      case 2:
-        return this.state.schemaJSON.properties.fb_image;
-        break;
-      case 3:
-        return this.state.schemaJSON.properties.instagram_image;
-        break;
-      case 4:
-        return this.state.optionalConfigSchemaJSON;
-        break;
-    }
-  }*/
-
-  renderFormData() {
-    switch(this.state.step) {
-      case 1:
-        return this.state.dataJSON.card_data.data.cover_data;
-        break;
-      case 2:
-        return this.state.dataJSON.card_data.data.fb_image;
-        break;
-      case 3:
-        return this.state.dataJSON.card_data.data.instagram_image;
-        break;
-      case 4:
-        return this.state.optionalConfigJSON;
-        break;
-    }
-  }
-
-  showLinkText() {
-    switch(this.state.step) {
-      case 1:
-        return '';
-        break;
-      case 2:
-        return '< Back to cover data';
-        break;
-      case 3:
-        return '< Back to FB/Twitter settings';
-        break;
-      case 4:
-        return '< Back to Instagram settings';
-        break;
-    }
-  }
-
-  showButtonText() {
-    switch(this.state.step) {
-      case 1:
-      case 2:
-        return 'Proceed to next step';
-        break;
-      case 3:
-        return 'Proceed to next step';
-        break;
-      case 4:
-        return 'Publish';
-        break;
-    }
-  }
-
-  onPrevHandler() {
-    let prev_step = --this.state.step;
-    this.setState({
-      step: prev_step
-    })
-    // console.log("show prev step", this.state.step)
-  }
-
-  renderEdit() {
-    // console.log(this.state.dataJSON, this.props, this.state.schemaJSON, "schema data")
-        console.log(this.state.schemaJSON);
-    if (this.state.schemaJSON === undefined) {
-      return(<div>Loading</div>)
-    } else {
-      return (
-        <div className="col-sm-12">
-          <div className = "col-sm-6" id="proto_share_form_div">
-            <Form schema = {this.state.schemaJSON}
-            onChange = {((e) => this.onChangeHandler(e))}
-            formData = {this.state.dataJSON.card_data.data.cover_data}>
-            <a id="proto_prev_link" onClick = {((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
-            <button type="submit" className="btn btn-info">{this.showButtonText() ? this.showButtonText() :"Submit"}</button>
-            </Form>
-          </div>
-          <div className = "col-sm-6 proto-share-card-div" id="proto_share_card_div">
-            <div className ="ui three item menu">
-              <a className ="item active" id = "facebook" onClick = {this.handleClick}>Facebook</a>
-              <a className ="item" id = "twitter" onClick = {this.handleClick}>Twitter</a>
-              <a className ="item" id = "instagram" onClick = {this.handleClick}>Instagram</a>
-            </div>
-            <div className = "preview">
-              {this.renderLaptop()}
-            </div>
           </div>
         </div>
       )
@@ -258,10 +107,6 @@ console.log(data,"...");
       case 'twitter' :
         return this.renderLaptop();
         break;
-      case 'edit' :
-        return this.renderEdit();
-        break;
     }
-
   }
 }
