@@ -28,6 +28,11 @@ ProtoGraph.Card.toShare.prototype.renderEdit = function (data) {
   generateShareCard.call(this, data);
 }
 
+ProtoGraph.Card.toShare.prototype.renderScreenshot = function (data) {
+  this.mode = 'screenshot';
+  generateShareCard.call(this, data);
+}
+
 function generateShareCard(data) {
   ReactDOM.render(
     <ShareCard
