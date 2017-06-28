@@ -27,6 +27,12 @@
   max-height: 450px;
 }
 
+.proto-cover-insta-screenshot, .proto-cover-fb-screenshot {
+  height: 450px;
+  width: 450px;
+  position: relative;
+}
+
 .proto-transparent-layer {
   height: 400px;
   width: 700px;

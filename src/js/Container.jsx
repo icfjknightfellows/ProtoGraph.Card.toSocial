@@ -124,7 +124,6 @@ export default class ShareCard extends React.Component {
           {
             (this.props.mode === "instagram") ? <img className="proto-cover-insta-screenshot" style = {styles} src = {cover_image}/> : ((this.props.mode === "facebook")? <img className="proto-cover-fb-screenshot" style = {styles} src = {cover_image}/> : <img src="https://static.pexels.com/photos/1510/road-sky-sand-street.jpg"/>)
           }
-
         </div>
       )
     }
