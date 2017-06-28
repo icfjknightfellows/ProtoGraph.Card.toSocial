@@ -2,9 +2,15 @@
   "data": {
     "cover_data": {
       "cover_title": "",
-      "logo_image": "",
-      "fb_image": "",
-      "instagram_image": ""
+      "logo_image":  {
+        "image": "http://images.onlymyhealth.com/imported/images/2017/April/06_Apr_2017/BloodPressure.jpg"
+      },
+      "fb_image":  {
+        "image": "http://images.onlymyhealth.com/imported/images/2017/April/06_Apr_2017/BloodPressure.jpg"
+      },
+      "instagram_image":  {
+        "image": "http://images.onlymyhealth.com/imported/images/2017/April/06_Apr_2017/BloodPressure.jpg"
+      }
     },
     "social_site_settings": {
       "facebook": {
