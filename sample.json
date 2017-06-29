@@ -1,16 +1,20 @@
 {
   "data": {
     "cover_data": {
-      "cover_title": "",
-      "logo_image":  {
-        "image": "https://s3.ap-south-1.amazonaws.com/test.ss/ikigai.png"
+      "cover_title": "This is a smaple Title",
+      "logo_image": {
+        "image": "https://www.gstatic.com/images/branding/googleg/1x/googleg_standard_color_128dp.png"
       },
-      "fb_image":  {
-        "image": ""
+      "fb_image": {
+        "image": "http://images.all-free-download.com/images/wallpapers_thum/small_sea_wave_hdtv_1080p_5946.jpg"
       },
-      "instagram_image":  {
-        "image": ""
-      }
+      "instagram_image": {
+        "image": "http://images.all-free-download.com/images/wallpapers_thum/small_sea_wave_hdtv_1080p_5946.jpg"
+      },
+      "facebook_message": "",
+      "twitter_message": "",
+      "instagram_message": "",
+      "post_url": ""
     },
     "social_site_settings": {
       "facebook": {
@@ -29,6 +33,5 @@
         "min_height": 640
       }
     }
-  },
-  "mandatory_config": {}
+  }
 }

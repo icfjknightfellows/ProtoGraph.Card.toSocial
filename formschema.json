@@ -1,62 +1,111 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "definitions": {},
-    "title": "User Data",
-    "id": "/properties/data/properties/cover_data",
-    "properties": {
-      "logo_image": {
-        "title": "Logo image",
-        "type": "object",
-        "properties": {
-          "image": {
-            "type": "string",
-            "format": "data-url",
-            "id": "/properties/data/properties/cover_data/properties/logo_image",
-            "title": "Upload an image",
-            "description": "An explanation about the purpose of this instance."
-          }
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "title": "Card Data",
+  "id": "/properties/data/properties/cover_data",
+  "properties": {
+    "data": {
+      "title": "",
+      "id": "/properties/data",
+      "properties": {
+        "cover_data": {
+          "title": "",
+          "id": "/properties/cover_data",
+          "properties": {
+            "cover_title": {
+              "type": "string",
+              "title": "",
+              "description": "",
+              "id": "/properties/data/properties/cover_data/properties/cover_title"
+            },
+            "logo_image": {
+              "title": "",
+              "type": "object",
+              "properties": {
+                "image": {
+                  "type": "string",
+                  "format": "data-url",
+                  "id": "/properties/data/properties/cover_data/properties/logo_image",
+                  "title": "Upload a logo image",
+                  "description": ""
+                }
+              }
+            },
+            "fb_image": {
+              "type": "object",
+              "title": "",
+              "properties": {
+                "image": {
+                  "title": "Upload an image for facebook and twitter",
+                  "type": "string",
+                  "format": "image",
+                  "ratio": "2/1",
+                  "id": "/properties/data/properties/fb_image",
+                  "description": ""
+                }
+              }
+            },
+            "instagram_image": {
+              "title": "",
+              "type": "object",
+              "properties": {
+                "image": {
+                  "title": "Upload an image for instagram",
+                  "type": "string",
+                  "format": "image",
+                  "ratio": "1/1",
+                  "id": "/properties/data/properties/instagram_image",
+                  "description": ""
+                }
+              }
+            },
+            "facebook_message": {
+              "id": "/properties/data/properties/cover_data/properties/facebook_message",
+              "title": "Facebook Message",
+              "type": "string",
+              "format": "textarea"
+            },
+            "twitter_message": {
+              "id": "/properties/data/properties/cover_data/properties/twitter_message",
+              "title": "Twitter Message",
+              "type": "string",
+              "format": "textarea",
+              "maxLength": 140
+            },
+            "instagram_message": {
+              "id": "/properties/data/properties/cover_data/properties/instagram_message",
+              "title": "Instagram Message",
+              "type": "string",
+              "format": "textarea"
+            },
+            "post_url": {
+              "id": "/properties/data/properties/cover_data/properties/post_url",
+              "title": "Post URL",
+              "type": "string",
+              "pattern": "((?:https?\\:\/\/|www\\.)(?:[-a-z0-9]+\\.)*[-a-z0-9]+.*)"
+            }
+          },
+          "required": [
+            "logo_image",
+            "cover_title",
+            "fb_image",
+            "instagram_image",
+            "facebook_message",
+            "twitter_message",
+            "instagram_message",
+            "post_url"
+          ],
+          "type": "object"
         }
       },
-      "cover_title": {
-        "type": "string",
-        "title": "Cover title",
-        "description": "An explanation about the purpose of this instance.",
-        "default": "Feature",
-        "id": "/properties/data/properties/cover_data/properties/cover_title",
-        "default":"Feature"
-      },
-      "fb_image": {
-        "type": "object",
-        "title": "Facebook / Twitter cover image",
-        "properties": {
-          "image": {
-            "title": "Upload an image",
-            "type": "string",
-            "format": "image",
-            "ratio": "2/1",
-            "id": "/properties/data/properties/fb_image",
-            "description": "An explanation about the purpose of this instance."
-          }
-        }
-      },
-      "instagram_image": {
-        "title": "Instagram cover image",
-        "type": "object",
-        "properties": {
-          "image": {
-            "title": "Upload an image",
-            "type": "image",
-            "format": "image",
-            "ratio": "1/1",
-            "id": "/properties/data/properties/instagram_image",
-            "description": "An explanation about the purpose of this instance."
-          }
-        }
-      }
-    },
-    "required": [
-      "cover_title",
-      "logo_image"
-    ],
-    "type": "object"
-  }
+      "required": [
+        "cover_data"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "data"
+  ],
+  "type": "object"
+}

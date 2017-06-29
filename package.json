@@ -28,7 +28,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "scripts": {
-    "start": "npm run build && webpack-dev-server --public --host 0.0.0.0",
+    "start": "webpack-dev-server --public --host 0.0.0.0",
     "build": "npm run build:std && npm run build:edit",
     "build:std" : "NODE_ENV=production webpack --config webpack.config.js",
     "build:edit": "NODE_ENV=production webpack --config webpack.config.edit.js",
