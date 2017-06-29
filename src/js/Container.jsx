@@ -65,13 +65,13 @@ export default class ShareCard extends React.Component {
         cover_image,
         cover_title = data.card_data.data.cover_data.cover_title,
         logo_image = typeof data.card_data.data.cover_data.logo_image === "object" ? data.card_data.data.cover_data.logo_image.image : data.card_data.data.cover_data.logo_image;
-      if(this.props.mode === "instagram_image") {
+      if(this.props.mode === "instagram") {
         cover_image = typeof data.card_data.data.cover_data.instagram_image === "object" ? data.card_data.data.cover_data.instagram_image.image : data.card_data.data.cover_data.instagram_image;
         styles = {
           width: social_site_settings.instagram.min_height * social_site_settings.instagram.width,
           height: social_site_settings.instagram.min_height
         }
-      } else if(this.props.mode === "fb_image" || this.props.mode === "twitter") {
+      } else if(this.props.mode === "facebook" || this.props.mode === "twitter") {
         cover_image = typeof data.card_data.data.cover_data.fb_image === "object" ? data.card_data.data.cover_data.fb_image.image : undefined;
         styles = {
           width: social_site_settings.twitter.min_height * social_site_settings.twitter.width,
@@ -79,21 +79,19 @@ export default class ShareCard extends React.Component {
         }
       }
       return (
-          <div>
-            <div className = "proto-cover-image">
-              {(this.props.mode === "instagram_image") ? <img className="proto-cover-insta" src = {cover_image}/> : <img className="proto-cover-fb" src = {cover_image}/>}
-              <div className = "proto-top-div">
-                <div className = "proto-top-image">
-                  {logo_image &&
-                    <img className="proto-logo-image" src = {logo_image} />
-                  }
-                </div>
-                {cover_title &&
-                  <div className="proto-quote-title">{cover_title}</div>
-                }
-              </div>
-            </div>
+        <div>
+          {cover_image &&
+            (this.props.mode === "instagram") ? <img className="proto-cover-insta" style = {styles} src = {cover_image}/> : <img className="proto-cover-fb" style = {styles} src = {cover_image}/>
+          }
+          <div className = "proto-top-div">
+            {logo_image &&
+              <img className="proto-logo-image" src = {logo_image} />
+            }
+            {cover_title &&
+              <div className="proto-quote-title">{cover_title}</div>
+            }
           </div>
+        </div>
       )
     }
   }
@@ -134,10 +132,10 @@ export default class ShareCard extends React.Component {
 
   render() {
     switch(this.props.mode) {
-      case 'fb_image' :
+      case 'facebook' :
         return this.renderLaptop();
         break;
-      case 'instagram_image' :
+      case 'instagram' :
         return this.renderLaptop();
         break;
       case 'twitter' :

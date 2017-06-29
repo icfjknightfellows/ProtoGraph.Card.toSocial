@@ -8,7 +8,7 @@ export default class EditShareCard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      type: "fb_image",
+      type: "facebook",
       dataJSON: {
         card_data: {}
       },
@@ -48,28 +48,25 @@ export default class EditShareCard extends React.Component {
         }));
     }
   }
-  diffObject(a, b) {
-    return Object.keys(a).reduce(function(map, k) {
-      if (a[k]["image"] !== b[k]["image"]) map["changed"] = k;
-      return map;
-    }, {});
-  }
-  
+
   onChangeHandler({formData}) {
-    var prev = this.state.dataJSON.card_data.data.cover_data;
-    var changed = this.diffObject(prev,formData);
-    var ch = document.getElementById(changed.changed);
-    if(this.state.mode !== changed.changed && (changed.changed === "fb_image") || (changed.changed === "instagram_image"))
-      ch.click();
     this.setState((prevStep, prop) => {
       let dataJSON = prevStep.dataJSON;
       dataJSON.card_data.data.cover_data = formData;
+      console.log(dataJSON,"vvV");
       return {
         dataJSON: dataJSON
       }
     });
   }
 
+  onPrevHandler() {
+    let prev_step = --this.state.step;
+    this.setState({
+      step: prev_step
+    })
+    // console.log("show prev step", this.state.step)
+  }
 
   render() {
     if (this.state.schemaJSON === undefined) {
@@ -80,18 +77,22 @@ export default class EditShareCard extends React.Component {
           <div className = "protograph_col_6" id="proto_share_form_div">
             <JSONSchemaForm schema = {this.state.schemaJSON}
             onChange = {((e) => this.onChangeHandler(e))}
-            formData = {this.state.dataJSON.card_data.data.cover_data}/>
+            formData = {this.state.dataJSON.card_data.data.cover_data}>
+            </JSONSchemaForm>
           </div>
           <div className = "protograph_col_6 proto-share-card-div" id="proto_share_card_div">
             <div className="ui compact menu">
-              <a className="item active" id = "fb_image" onClick = {this.handleClick}>
+              <a className="item active" id = "facebook" onClick = {this.handleClick}>
                 <i className="facebook square icon"></i>
+                Facebook
               </a>
               <a className="item" id = "twitter" onClick = {this.handleClick}>
                 <i className="twitter square icon"></i>
+                Twitter
               </a>
-              <a className="item" id = "instagram_image" onClick = {this.handleClick}>
+              <a className="item" id = "instagram" onClick = {this.handleClick}>
                 <i className="instagram icon"></i>
+                Instagram
               </a>
             </div>
 
