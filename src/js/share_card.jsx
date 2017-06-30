@@ -108,13 +108,13 @@ export default class ShareCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       const data = this.state.dataJSON,
-        social_site_settings = this.state.dataJSON.card_data.data.social_site_settings;
+        social_site_settings = this.state.dataJSON.data.social_site_settings;
       let styles,
         cover_image,
-        cover_title = data.card_data.data.cover_data.cover_title,
-        logo_image = typeof data.card_data.data.cover_data.logo_image === "object" ? data.card_data.data.cover_data.logo_image.image : data.card_data.data.cover_data.logo_image;
+        cover_title = data.data.cover_data.cover_title,
+        logo_image = typeof data.data.cover_data.logo_image === "object" ? data.data.cover_data.logo_image.image : data.data.cover_data.logo_image;
       if(this.props.mode === "instagram") {
-        cover_image = typeof data.card_data.data.cover_data.instagram_image === "object" ? data.card_data.data.cover_data.instagram_image.image : data.card_data.data.cover_data.instagram_image;
+        cover_image = typeof data.data.cover_data.instagram_image === "object" ? data.data.cover_data.instagram_image.image : data.data.cover_data.instagram_image;
         styles = {
           width: social_site_settings.instagram.min_height * social_site_settings.instagram.width,
           height: social_site_settings.instagram.min_height
