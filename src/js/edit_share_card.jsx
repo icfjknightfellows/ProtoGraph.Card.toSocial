@@ -11,9 +11,7 @@ export default class EditShareCard extends React.Component {
       fetchingData: true,
       type: "fb_image",
       dataJSON: {},
-      schemaJSON: undefined,
-      optionalConfigJSON: {},
-      optionalConfigSchemaJSON: undefined
+      schemaJSON: undefined
     }
     this.handleClick = this.handleClick.bind(this);
   }
@@ -29,7 +27,6 @@ export default class EditShareCard extends React.Component {
     const data = this.state;
     return {
       dataJSON: data.dataJSON,
-      optionalConfigJSON: data.optionalConfigJSON,
       name: data.dataJSON.data.cover_data.cover_title.substr(0,225)
     };
   }
@@ -39,17 +36,13 @@ export default class EditShareCard extends React.Component {
     if (this.state.fetchingData){
       axios.all([
         axios.get(this.props.dataURL),
-        axios.get(this.props.schemaURL),
-        axios.get(this.props.optionalConfigURL),
-        axios.get(this.props.optionalConfigSchemaURL)
-      ]).then(axios.spread((card, schema, optConfig, optConfigSchema) => {
+        axios.get(this.props.schemaURL)
+      ]).then(axios.spread((card, schema) => {
 
         this.setState({
           fetchingData: false,
           dataJSON: card.data,
-          schemaJSON: schema.data,
-          optionalConfigJSON: optConfig.data,
-          optionalConfigSchemaJSON: optConfigSchema.data
+          schemaJSON: schema.data
         });
 
         if(this.props.editData && (typeof this.props.editData.onLastStep === "function")) {
@@ -135,8 +128,6 @@ export default class EditShareCard extends React.Component {
                 mode={this.state.type}
                 dataJSON={this.state.dataJSON}
                 schemaJSON={this.state.schemaJSON}
-                optionalConfigJSON={this.state.optionalConfigJSON}
-                optionalConfigSchemaJSON={this.state.optionalConfigSchemaJSON}
               />
             </div>
           </div>

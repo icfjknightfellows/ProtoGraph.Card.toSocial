@@ -9,9 +9,7 @@ export default class ShareCard extends React.Component {
     let stateVar = {
       fetchingData: true,
       dataJSON: {},
-      schemaJSON: undefined,
-      optionalConfigJSON: {},
-      optionalConfigSchemaJSON: undefined
+      schemaJSON: undefined
     };
 
     if (this.props.dataJSON) {
@@ -23,31 +21,22 @@ export default class ShareCard extends React.Component {
       stateVar.schemaJSON = this.props.schemaJSON;
     }
 
-    if (this.props.optionalConfigJSON) {
-      stateVar.optionalConfigJSON = this.props.optionalConfigJSON;
-    }
-
-    if (this.props.optionalConfigSchemaJSON) {
-      stateVar.optionalConfigSchemaJSON = this.props.optionalConfigSchemaJSON;
-    }
-
     this.state = stateVar;
   }
 
   componentDidMount() {
     // get sample json data based on type i.e string or object
     if (this.state.fetchingData){
-      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
-        .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
-          console.log(card.data,".v.v.");
+      axios.all([
+        axios.get(this.props.dataURL),
+        axios.get(this.props.schemaURL)
+      ]).then(axios.spread((card, schema) => {
           this.setState({
             fetchingData: false,
             dataJSON: card.data,
-            schemaJSON: schema.data,
-            optionalConfigJSON: opt_config.data,
-            optionalConfigSchemaJSON: opt_config_schema.data
+            schemaJSON: schema.data
           });
-        }));
+      }));
     }
   }
 
