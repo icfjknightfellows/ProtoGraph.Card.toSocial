@@ -17,7 +17,6 @@
   /*background:rgba(0,0,0,0.6);*/
 }
 
-
 #ProtoScreenshot {
   max-height: 450px;
   max-width: 450px;
@@ -25,7 +24,6 @@
   overflow: hidden;
   padding: 10px 15px;
   margin-left: 20px;
-  max-height: 450px;
 }
 
 .proto-transparent-layer {

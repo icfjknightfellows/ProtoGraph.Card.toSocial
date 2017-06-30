@@ -8,7 +8,7 @@ export default class EditShareCard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      type: "facebook",
+      type: "fb_image",
       dataJSON: {
         card_data: {}
       },
@@ -20,14 +20,19 @@ export default class EditShareCard extends React.Component {
   }
 
   handleClick(e){
-    var id = e.target.id;
+    var id = e.target.closest('a.item').id;
     this.setState({
       type: id
     });
   }
 
   exportData() {
-    return this.state;
+    const data = this.state;
+    return {
+      dataJSON: data.dataJSON,
+      optionalConfigJSON: data.optionalConfigJSON,
+      name: data.dataJSON.card_data.data.cover_data.cover_title.substr(0,225)
+    };
   }
 
   componentDidMount() {
@@ -49,24 +54,39 @@ export default class EditShareCard extends React.Component {
     }
   }
 
+  diffObject(a, b) {
+    return Object.keys(a).reduce(function(map, k) {
+      if (a[k]["image"] !== b[k]["image"]) map["changed"] = k;
+      return map;
+    }, {});
+  }
+
   onChangeHandler({formData}) {
     this.setState((prevStep, prop) => {
       let dataJSON = prevStep.dataJSON;
-      dataJSON.card_data.data.cover_data = formData;
-      console.log(dataJSON,"vvV");
-      return {
+        let changed = this.diffObject(dataJSON.card_data.data.cover_data, formData.data.cover_data);
+        let ch = document.getElementById(changed.changed);
+
+      dataJSON.card_data.data.cover_data = formData.data.cover_data;
+
+      console.log(ch);
+      let state = {
         dataJSON: dataJSON
       }
+
+      if (ch) {
+        switch(ch.id) {
+          case 'fb_image':
+          case 'instagram_image':
+            state.type = ch.id
+            break;
+        }
+      }
+
+      return state;
     });
   }
 
-  onPrevHandler() {
-    let prev_step = --this.state.step;
-    this.setState({
-      step: prev_step
-    })
-    // console.log("show prev step", this.state.step)
-  }
 
   render() {
     if (this.state.schemaJSON === undefined) {
@@ -75,24 +95,22 @@ export default class EditShareCard extends React.Component {
       return (
         <div>
           <div className = "protograph_col_6" id="proto_share_form_div">
-            <JSONSchemaForm schema = {this.state.schemaJSON}
-            onChange = {((e) => this.onChangeHandler(e))}
-            formData = {this.state.dataJSON.card_data.data.cover_data}>
-            </JSONSchemaForm>
+            <JSONSchemaForm
+              schema = {this.state.schemaJSON}
+              onChange = {((e) => this.onChangeHandler(e))}
+              formData = {this.state.dataJSON.card_data}
+            />
           </div>
           <div className = "protograph_col_6 proto-share-card-div" id="proto_share_card_div">
             <div className="ui compact menu">
-              <a className="item active" id = "facebook" onClick = {this.handleClick}>
+              <a className={`item ${this.state.type === 'fb_image' ? 'active' : ''}`} id = "fb_image" onClick = {this.handleClick}>
                 <i className="facebook square icon"></i>
-                Facebook
               </a>
-              <a className="item" id = "twitter" onClick = {this.handleClick}>
+              <a className={`item ${this.state.type === 'twitter' ? 'active' : ''}`} id = "twitter" onClick = {this.handleClick}>
                 <i className="twitter square icon"></i>
-                Twitter
               </a>
-              <a className="item" id = "instagram" onClick = {this.handleClick}>
+              <a className={`item ${this.state.type === 'instagram_image' ? 'active' : ''}`} id = "instagram_image" onClick = {this.handleClick}>
                 <i className="instagram icon"></i>
-                Instagram
               </a>
             </div>
 
