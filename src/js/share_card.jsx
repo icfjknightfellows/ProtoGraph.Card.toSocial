@@ -129,7 +129,9 @@ export default class ShareCard extends React.Component {
       return (
         <div id="ProtoScreenshot">
           {
-            (this.props.mode === "instagram") ? <img className="proto-cover-insta-screenshot" style = {styles} src = {cover_image}/> : ((this.props.mode === "facebook")? <img className="proto-cover-fb-screenshot" style = {styles} src = {cover_image}/> : <img src="https://static.pexels.com/photos/1510/road-sky-sand-street.jpg"/>)
+            (this.props.mode === "instagram") ? <img className="proto-cover-insta-screenshot" style = {styles} src = {cover_image}/>
+             : ((this.props.mode === "facebook")? <img className="proto-cover-fb-screenshot" style = {styles} src = {cover_image}/>
+              : <img src="https://static.pexels.com/photos/1510/road-sky-sand-street.jpg"/>)
           }
 
         </div>
@@ -139,11 +141,11 @@ export default class ShareCard extends React.Component {
 
   render() {
     switch(this.props.mode) {
-      case 'fb_image' :
+      case 'facebook' :
         return this.renderLaptop();
         break;
-      case 'instagram_image' :
-        return this.renderLaptop();
+      case 'instagram' :
+        return this.renderScreenshot();
         break;
       case 'twitter' :
         return this.renderLaptop();
