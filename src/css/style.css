@@ -1,31 +1,28 @@
 @import url('https://fonts.googleapis.com/css?family=Droid+Sans');
 
 .proto-cover-fb{
-  height: 100% !important;
-  width: 475px !important;
+  height: 225px !important;
+  width: 450px !important;
   position: relative;
+  background:#efefef
   /*max-height: 100%; */
   /*max-width: 100%;*/
   /*background:rgba(0,0,0,0.6);*/
 }
 .proto-cover-insta{
-  height: 475px !important;
-  width: 475px !important;
+  height: 450px !important;
+  width: 450px !important;
   position: relative;
+  background:#efefef;
   /*max-height: 100%; */
   /*max-width: 100%;*/
   /*background:rgba(0,0,0,0.6);*/
 }
-
-#ProtoScreenshot {
-  max-height: 450px;
-  max-width: 450px;
+.proto-cover-image{
+  width: 450px !important;
   position: relative;
-  overflow: hidden;
-  padding: 10px 15px;
-  margin-left: 20px;
+  margin:auto;
 }
-
 .proto-transparent-layer {
   height: 400px;
   width: 700px;
@@ -37,8 +34,8 @@
 }
 
 .proto-logo-image{
- /* height: 37px;
-  width: 37px;*/
+  height: 100%;
+  width: 100%;
   border-radius: 5px;
   /*position: absolute; */
   /*top: 20px;
@@ -64,8 +61,14 @@
 
 .proto-top-div{
   position: absolute;
-  top: 65px;
-  padding-left: 5px;
+  top: 15px;
+  left: 15px;
+
+}
+.proto-top-image{
+  display: inline-block;
+  height:30px;
+  width:30px;
 }
 .form-container{
   margin-top:20px;
@@ -78,10 +81,27 @@
 
 .proto-share-card-div {
   max-height: 100%;
-  background: #EFEFEF;
   overflow: auto;
   min-height: 512px;
+  text-align: center;
+  margin-top:10px;
   /*padding: 0px;*/
+}
+
+.preview {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  min-height: 447.5px;
+  margin-top:10px;
+}
+
+.protograph-edit-form {
+  border-right: 1px solid #efefef ;
+}
+
+.protograph-submit-button {
+  display: none;
 }
 
 @media only screen and (max-width: 500px){
@@ -116,4 +136,14 @@
 
 .protograph_col_6 {
   width: 50%;
+  float: left;
+}
+
+#ProtoScreenshot {
+  max-height: 450px;
+  max-width: 450px;
+  position: relative;
+  overflow: hidden;
+  padding: 10px 15px;
+  margin-left: 20px;
 }
