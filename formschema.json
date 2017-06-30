@@ -13,8 +13,9 @@
           "id": "/properties/cover_data",
           "properties": {
             "cover_title": {
+              "default":"Feature",
               "type": "string",
-              "title": "",
+              "title": "Cover Title",
               "description": "",
               "id": "/properties/data/properties/cover_data/properties/cover_title"
             },
@@ -26,7 +27,7 @@
                   "type": "string",
                   "format": "data-url",
                   "id": "/properties/data/properties/cover_data/properties/logo_image",
-                  "title": "Upload a logo image",
+                  "title": "Your company logo",
                   "description": ""
                 }
               }
@@ -36,7 +37,7 @@
               "title": "",
               "properties": {
                 "image": {
-                  "title": "Upload an image for facebook and twitter",
+                  "title": "Facebook/Twitter image",
                   "type": "string",
                   "format": "image",
                   "ratio": "2/1",
@@ -50,7 +51,7 @@
               "type": "object",
               "properties": {
                 "image": {
-                  "title": "Upload an image for instagram",
+                  "title": "Instagram image",
                   "type": "string",
                   "format": "image",
                   "ratio": "1/1",
@@ -107,5 +108,6 @@
   "required": [
     "data"
   ],
-  "type": "object"
+  "type": "object",
+  "push_to_s3":["data/cover_data/logo_image/image", "data/cover_data/fb_image/image", "data/cover_data/instagram_image/image"]
 }

@@ -59,7 +59,9 @@ export default class EditShareCard extends React.Component {
 
   diffObject(a, b) {
     return Object.keys(a).reduce(function(map, k) {
-      if (a[k]["image"] !== b[k]["image"]) map["changed"] = k;
+      if ((a[k] && a[k]['image']) && (b[k] && b[k]['image'])) {
+        if (a[k]["image"] !== b[k]["image"]) map["changed"] = k;
+      }
       return map;
     }, {});
   }

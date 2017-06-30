@@ -3,13 +3,13 @@
     "cover_data": {
       "cover_title": "This is a smaple Title",
       "logo_image": {
-        "image": "https://www.gstatic.com/images/branding/googleg/1x/googleg_standard_color_128dp.png"
+        "image": "https://s3.ap-south-1.amazonaws.com/protos.dev/Assets/scroll.png"
       },
       "fb_image": {
-        "image": "http://images.all-free-download.com/images/wallpapers_thum/small_sea_wave_hdtv_1080p_5946.jpg"
+        "image": "https://s3.ap-south-1.amazonaws.com/protos.dev/Assets/cover.jpg"
       },
       "instagram_image": {
-        "image": "http://images.all-free-download.com/images/wallpapers_thum/small_sea_wave_hdtv_1080p_5946.jpg"
+        "image": "https://s3.ap-south-1.amazonaws.com/protos.dev/Assets/cover.jpg"
       },
       "facebook_message": "",
       "twitter_message": "",
