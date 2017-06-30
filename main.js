@@ -25,11 +25,6 @@ ProtoGraph.Card.toShare.prototype.renderInstagramCard = function (data) {
   generateShareCard.call(this, data);
 }
 
-ProtoGraph.Card.toShare.prototype.renderEdit = function (data) {
-  this.mode = 'edit';
-  generateShareCard.call(this, data);
-}
-
 ProtoGraph.Card.toShare.prototype.renderScreenshot = function (data) {
   this.mode = 'screenshot';
   this.screenshotMode = 'instagram_image';

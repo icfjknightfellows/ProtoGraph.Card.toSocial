@@ -126,6 +126,7 @@ export default class EditShareCard extends React.Component {
             <div className = "preview">
               <ShareCard
                 mode={this.state.type}
+                screenshotMode={this.state.type}
                 dataJSON={this.state.dataJSON}
                 schemaJSON={this.state.schemaJSON}
               />

@@ -20,13 +20,15 @@ export default class ShareCard extends React.Component {
     if (this.props.schemaJSON) {
       stateVar.schemaJSON = this.props.schemaJSON;
     }
-
+    console.log(stateVar, this.props,"++++++++++++++++++++++++++++=")
     this.state = stateVar;
   }
 
   componentDidMount() {
     // get sample json data based on type i.e string or object
+    console.log(this.state.fetchingData, "l;;;;;;;;;;;;;;;;;")
     if (this.state.fetchingData){
+      console.log("ppppppppppppppppppppppppppppppp")
       axios.all([
         axios.get(this.props.dataURL),
         axios.get(this.props.schemaURL)
@@ -36,6 +38,7 @@ export default class ShareCard extends React.Component {
             dataJSON: card.data,
             schemaJSON: schema.data
           });
+          console.log(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
       }));
     }
   }
@@ -67,7 +70,12 @@ export default class ShareCard extends React.Component {
         }
         break;
     }
-
+    console.log({
+      cover_title: cover_title,
+      logo_image: logo_image,
+      cover_image: cover_image,
+      styles: styles
+    })
     return {
       cover_title: cover_title,
       logo_image: logo_image,
@@ -82,6 +90,7 @@ export default class ShareCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       const {cover_image, logo_image, cover_title, styles} = this.getImageParameters();
+      console.log(cover_image, logo_image, cover_title, styles)
       return (
         <div>
           <div className = "proto-cover-image">
@@ -103,7 +112,7 @@ export default class ShareCard extends React.Component {
   }
 
   renderScreenshot() {
-    if (this.state.schemaJSON === undefined ){
+    if (this.state.fetchingData){
       return(<div>Loading</div>)
     } else {
       const {cover_image, logo_image, cover_title, styles} = this.getImageParameters();
@@ -126,14 +135,12 @@ export default class ShareCard extends React.Component {
   }
 
   render() {
+    console.log(this.props.mode)
     switch(this.props.mode) {
-      case 'facebook' :
+      case 'fb_image' :
         return this.renderLaptop();
         break;
-      case 'instagram' :
-        return this.renderScreenshot();
-        break;
-      case 'twitter' :
+      case 'instagram_image' :
         return this.renderLaptop();
         break;
       case 'screenshot' :
