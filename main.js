@@ -29,7 +29,7 @@ ProtoGraph.Card.toShare.prototype.renderEdit = function (data) {
 }
 
 ProtoGraph.Card.toShare.prototype.renderScreenshot = function (data) {
-  this.mode = 'screenshot';
+  this.mode = 'instagram';
   generateShareCard.call(this, data);
 }
 
