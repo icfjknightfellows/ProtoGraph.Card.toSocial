@@ -7,15 +7,15 @@ export default class ShareCard extends React.Component {
     super(props)
 
     let stateVar = {
-      dataJSON: {
-        card_data: {}
-      },
+      fetchingData: true,
+      dataJSON: {},
       schemaJSON: undefined,
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined
     };
 
     if (this.props.dataJSON) {
+      stateVar.fetchingData = false;
       stateVar.dataJSON = this.props.dataJSON;
     }
 
@@ -36,15 +36,13 @@ export default class ShareCard extends React.Component {
 
   componentDidMount() {
     // get sample json data based on type i.e string or object
-    if (!this.state.schemaJSON){
+    if (this.state.fetchingData){
       axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
         .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
           console.log(card.data,".v.v.");
           this.setState({
-            dataJSON: {
-              card_data: card.data,
-              configs: opt_config.data
-            },
+            fetchingData: false,
+            dataJSON: card.data,
             schemaJSON: schema.data,
             optionalConfigJSON: opt_config.data,
             optionalConfigSchemaJSON: opt_config_schema.data
@@ -55,45 +53,52 @@ export default class ShareCard extends React.Component {
 
 
   renderLaptop() {
-    // console.log("renderLaptop", this.state);
-    if (this.state.schemaJSON === undefined ){
+    if (this.state.fetchingData){
       return(<div>Loading</div>)
     } else {
-      const data = this.state.dataJSON,
-        social_site_settings = this.state.dataJSON.card_data.data.social_site_settings;
+
+      const data = this.state.dataJSON.data,
+        social_site_settings = this.state.dataJSON.data.social_site_settings;
+
       let styles,
         cover_image,
-        cover_title = data.card_data.data.cover_data.cover_title,
-        logo_image = typeof data.card_data.data.cover_data.logo_image === "object" ? data.card_data.data.cover_data.logo_image.image : data.card_data.data.cover_data.logo_image;
-      if(this.props.mode === "instagram_image") {
-        cover_image = typeof data.card_data.data.cover_data.instagram_image === "object" ? data.card_data.data.cover_data.instagram_image.image : data.card_data.data.cover_data.instagram_image;
-        styles = {
-          width: social_site_settings.instagram.min_height * social_site_settings.instagram.width,
-          height: social_site_settings.instagram.min_height
-        }
-      } else if(this.props.mode === "fb_image" || this.props.mode === "twitter") {
-        cover_image = typeof data.card_data.data.cover_data.fb_image === "object" ? data.card_data.data.cover_data.fb_image.image : undefined;
-        styles = {
-          width: social_site_settings.twitter.min_height * social_site_settings.twitter.width,
-          height: social_site_settings.twitter.min_height
-        }
+        cover_title = data.cover_data.cover_title,
+        logo_image = data.cover_data.logo_image.image;
+
+      switch(this.props.mode) {
+        case 'instagram_image':
+          cover_image = data.cover_data.instagram_image.image;
+          styles = {
+            width: social_site_settings.instagram.min_height * social_site_settings.instagram.width,
+            height: social_site_settings.instagram.min_height
+          }
+          break;
+        case 'fb_image':
+        case 'twitter':
+          cover_image = data.cover_data.fb_image.image;
+          styles = {
+            width: social_site_settings.twitter.min_height * social_site_settings.twitter.width,
+            height: social_site_settings.twitter.min_height
+          }
+          break;
       }
+
       return (
-          <div>
-            <div className = "proto-cover-image">
-              {(this.props.mode === "instagram_image") ? <img className="proto-cover-insta" src = {cover_image}/> : <img className="proto-cover-fb" src = {cover_image}/>}
-              <div className = "proto-top-div">
-                <div className = "proto-top-image">
-                  {logo_image &&
-                    <img className="proto-logo-image" src = {logo_image} />
-                  }
-                </div>
-                {cover_title &&
-                  <div className="proto-quote-title">{cover_title}</div>
+        <div>
+          <div className = "proto-cover-image">
+            <img className={`${(this.props.mode === "instagram_image") ? 'proto-cover-insta' : 'proto-cover-fb'}`} src={cover_image}/>
+            <div className = "proto-top-div">
+              <div className = "proto-top-image">
+                { logo_image &&
+                  <img className="proto-logo-image" src={logo_image} />
                 }
               </div>
+              { cover_title &&
+                <div className="proto-quote-title">{cover_title}</div>
+              }
             </div>
           </div>
+        </div>
       )
     }
   }

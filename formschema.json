@@ -13,7 +13,6 @@
           "id": "/properties/cover_data",
           "properties": {
             "cover_title": {
-              "default":"Feature",
               "type": "string",
               "title": "Cover Title",
               "description": "",

@@ -1,17 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import ShareCard from './Container.jsx';
+import ShareCard from './share_card.jsx';
 import JSONSchemaForm from '../../lib/js/react-jsonschema-form.js';
 
 export default class EditShareCard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      fetchingData: true,
       type: "fb_image",
-      dataJSON: {
-        card_data: {}
-      },
+      dataJSON: {},
       schemaJSON: undefined,
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined
@@ -31,29 +30,32 @@ export default class EditShareCard extends React.Component {
     return {
       dataJSON: data.dataJSON,
       optionalConfigJSON: data.optionalConfigJSON,
-      name: data.dataJSON.card_data.data.cover_data.cover_title.substr(0,225)
+      name: data.dataJSON.data.cover_data.cover_title.substr(0,225)
     };
   }
 
   componentDidMount() {
     // get sample json data based on type i.e string or object
-    if (typeof this.props.dataURL === "string"){
-      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
-        .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
-          console.log(card.data,".v.v.");
-          this.setState({
-            dataJSON: {
-              card_data: card.data,
-              configs: opt_config.data
-            },
-            schemaJSON: schema.data,
-            optionalConfigJSON: opt_config.data,
-            optionalConfigSchemaJSON: opt_config_schema.data
-          });
-          if(this.props.editData && (typeof this.props.editData.onLastStep === "function")) {
-            this.props.editData.onLastStep();
-          }
-        }));
+    if (this.state.fetchingData){
+      axios.all([
+        axios.get(this.props.dataURL),
+        axios.get(this.props.schemaURL),
+        axios.get(this.props.optionalConfigURL),
+        axios.get(this.props.optionalConfigSchemaURL)
+      ]).then(axios.spread((card, schema, optConfig, optConfigSchema) => {
+
+        this.setState({
+          fetchingData: false,
+          dataJSON: card.data,
+          schemaJSON: schema.data,
+          optionalConfigJSON: optConfig.data,
+          optionalConfigSchemaJSON: optConfigSchema.data
+        });
+
+        if(this.props.editData && (typeof this.props.editData.onLastStep === "function")) {
+          this.props.editData.onLastStep();
+        }
+      }));
     }
   }
 
@@ -69,12 +71,10 @@ export default class EditShareCard extends React.Component {
   onChangeHandler({formData}) {
     this.setState((prevStep, prop) => {
       let dataJSON = prevStep.dataJSON;
-        let changed = this.diffObject(dataJSON.card_data.data.cover_data, formData.data.cover_data);
+        let changed = this.diffObject(dataJSON.data.cover_data, formData.data.cover_data);
         let ch = document.getElementById(changed.changed);
 
-      dataJSON.card_data.data.cover_data = formData.data.cover_data;
-
-      console.log(ch);
+      dataJSON.data.cover_data = formData.data.cover_data;
       let state = {
         dataJSON: dataJSON
       }
@@ -94,7 +94,7 @@ export default class EditShareCard extends React.Component {
 
 
   render() {
-    if (this.state.schemaJSON === undefined) {
+    if (this.state.fetchingData) {
       return(<div>Loading</div>)
     } else {
       return (
@@ -103,20 +103,29 @@ export default class EditShareCard extends React.Component {
             <JSONSchemaForm
               schema = {this.state.schemaJSON}
               onChange = {((e) => this.onChangeHandler(e))}
-              formData = {this.state.dataJSON.card_data}
+              formData = {this.state.dataJSON}
             >
               <button type="submit" className="default-button protograph-primary-button protograph-submit-button">Publish</button>
             </JSONSchemaForm>
           </div>
           <div className = "protograph_col_6 proto-share-card-div" id="proto_share_card_div">
             <div className="ui compact menu">
-              <a className={`item ${this.state.type === 'fb_image' ? 'active' : ''}`} id = "fb_image" onClick = {this.handleClick}>
+              <a className={`item ${this.state.type === 'fb_image' ? 'active' : ''}`}
+                id="fb_image"
+                onClick={this.handleClick}
+              >
                 <i className="facebook square icon"></i>
               </a>
-              <a className={`item ${this.state.type === 'twitter' ? 'active' : ''}`} id = "twitter" onClick = {this.handleClick}>
+              <a className={`item ${this.state.type === 'twitter' ? 'active' : ''}`}
+                id="twitter"
+                onClick={this.handleClick}
+              >
                 <i className="twitter square icon"></i>
               </a>
-              <a className={`item ${this.state.type === 'instagram_image' ? 'active' : ''}`} id = "instagram_image" onClick = {this.handleClick}>
+              <a className={`item ${this.state.type === 'instagram_image' ? 'active' : ''}`}
+                id="instagram_image"
+                onClick={this.handleClick}
+              >
                 <i className="instagram icon"></i>
               </a>
             </div>
