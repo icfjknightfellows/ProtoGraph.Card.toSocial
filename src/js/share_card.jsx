@@ -127,11 +127,11 @@ export default class ShareCard extends React.Component {
 
   render() {
     switch(this.props.mode) {
-      case 'fb_image' :
+      case 'facebook' :
         return this.renderLaptop();
         break;
-      case 'instagram_image' :
-        return this.renderLaptop();
+      case 'instagram' :
+        return this.renderScreenshot();
         break;
       case 'twitter' :
         return this.renderLaptop();
