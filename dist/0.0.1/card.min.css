@@ -63,7 +63,7 @@
   position: absolute;
   top: 15px;
   left: 15px;
-  
+
 }
 .proto-top-image{
   display: inline-block;
@@ -94,6 +94,14 @@
   width: 100%;
   min-height: 447.5px;
   margin-top:10px;
+}
+
+.protograph-edit-form {
+  border-right: 1px solid #efefef ;
+}
+
+.protograph-submit-button {
+  display: none;
 }
 
 @media only screen and (max-width: 500px){

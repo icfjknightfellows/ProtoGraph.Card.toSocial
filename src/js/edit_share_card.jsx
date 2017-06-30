@@ -50,6 +50,9 @@ export default class EditShareCard extends React.Component {
             optionalConfigJSON: opt_config.data,
             optionalConfigSchemaJSON: opt_config_schema.data
           });
+          if(this.props.editData && (typeof this.props.editData.onLastStep === "function")) {
+            this.props.editData.onLastStep();
+          }
         }));
     }
   }
@@ -94,12 +97,14 @@ export default class EditShareCard extends React.Component {
     } else {
       return (
         <div>
-          <div className = "protograph_col_6" id="proto_share_form_div">
+          <div className = "protograph_col_6 protograph-edit-form" id="proto_share_form_div">
             <JSONSchemaForm
               schema = {this.state.schemaJSON}
               onChange = {((e) => this.onChangeHandler(e))}
               formData = {this.state.dataJSON.card_data}
-            />
+            >
+              <button type="submit" className="default-button protograph-primary-button protograph-submit-button">Publish</button>
+            </JSONSchemaForm>
           </div>
           <div className = "protograph_col_6 proto-share-card-div" id="proto_share_card_div">
             <div className="ui compact menu">
