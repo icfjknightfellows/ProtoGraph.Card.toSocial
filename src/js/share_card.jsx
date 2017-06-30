@@ -40,38 +40,48 @@ export default class ShareCard extends React.Component {
     }
   }
 
+  getImageParameters() {
+    const data = this.state.dataJSON.data,
+      social_site_settings = this.state.dataJSON.data.social_site_settings;
+
+    let styles,
+      cover_image,
+      cover_title = data.cover_data.cover_title,
+      logo_image = data.cover_data.logo_image.image,
+      mode = this.props.mode !== 'screenshot' ? this.props.mode : this.props.screenshotMode;
+
+    switch(mode) {
+      case 'instagram_image':
+        cover_image = data.cover_data.instagram_image.image;
+        styles = {
+          width: social_site_settings.instagram.min_height * social_site_settings.instagram.width,
+          height: social_site_settings.instagram.min_height
+        }
+        break;
+      case 'fb_image':
+      case 'twitter':
+        cover_image = data.cover_data.fb_image.image;
+        styles = {
+          width: social_site_settings.twitter.min_height * social_site_settings.twitter.width,
+          height: social_site_settings.twitter.min_height
+        }
+        break;
+    }
+
+    return {
+      cover_title: cover_title,
+      logo_image: logo_image,
+      cover_image: cover_image,
+      styles: styles
+    };
+
+  }
 
   renderLaptop() {
     if (this.state.fetchingData){
       return(<div>Loading</div>)
     } else {
-
-      const data = this.state.dataJSON.data,
-        social_site_settings = this.state.dataJSON.data.social_site_settings;
-
-      let styles,
-        cover_image,
-        cover_title = data.cover_data.cover_title,
-        logo_image = data.cover_data.logo_image.image;
-
-      switch(this.props.mode) {
-        case 'instagram_image':
-          cover_image = data.cover_data.instagram_image.image;
-          styles = {
-            width: social_site_settings.instagram.min_height * social_site_settings.instagram.width,
-            height: social_site_settings.instagram.min_height
-          }
-          break;
-        case 'fb_image':
-        case 'twitter':
-          cover_image = data.cover_data.fb_image.image;
-          styles = {
-            width: social_site_settings.twitter.min_height * social_site_settings.twitter.width,
-            height: social_site_settings.twitter.min_height
-          }
-          break;
-      }
-
+      const {cover_image, logo_image, cover_title, styles} = this.getImageParameters();
       return (
         <div>
           <div className = "proto-cover-image">
@@ -96,33 +106,20 @@ export default class ShareCard extends React.Component {
     if (this.state.schemaJSON === undefined ){
       return(<div>Loading</div>)
     } else {
-      const data = this.state.dataJSON,
-        social_site_settings = this.state.dataJSON.data.social_site_settings;
-      let styles,
-        cover_image,
-        cover_title = data.data.cover_data.cover_title,
-        logo_image = typeof data.data.cover_data.logo_image === "object" ? data.data.cover_data.logo_image.image : data.data.cover_data.logo_image;
-      if(this.props.mode === "instagram") {
-        cover_image = typeof data.data.cover_data.instagram_image === "object" ? data.data.cover_data.instagram_image.image : data.data.cover_data.instagram_image;
-        styles = {
-          width: social_site_settings.instagram.min_height * social_site_settings.instagram.width,
-          height: social_site_settings.instagram.min_height
-        }
-      } else if(this.props.mode === "facebook" || this.props.mode === "twitter") {
-        cover_image = typeof data.card_data.data.cover_data.fb_image === "object" ? data.card_data.data.cover_data.fb_image.image : undefined;
-        styles = {
-          width: social_site_settings.twitter.min_height * social_site_settings.twitter.width,
-          height: social_site_settings.twitter.min_height
-        }
-      }
+      const {cover_image, logo_image, cover_title, styles} = this.getImageParameters();
       return (
-        <div id="ProtoScreenshot">
-          {
-            (this.props.mode === "instagram") ? <img className="proto-cover-insta-screenshot" style = {styles} src = {cover_image}/>
-             : ((this.props.mode === "facebook")? <img className="proto-cover-fb-screenshot" style = {styles} src = {cover_image}/>
-              : <img src="https://static.pexels.com/photos/1510/road-sky-sand-street.jpg"/>)
-          }
-
+        <div id="ProtoScreenshot" className = "proto-cover-image">
+          <img className={`${(this.props.screenshotMode === "instagram_image") ? 'proto-cover-insta' : 'proto-cover-fb'}`} src={cover_image}/>
+          <div className = "proto-top-div">
+            <div className = "proto-top-image">
+              { logo_image &&
+                <img className="proto-logo-image" src={logo_image} />
+              }
+            </div>
+            { cover_title &&
+              <div className="proto-quote-title">{cover_title}</div>
+            }
+          </div>
         </div>
       )
     }

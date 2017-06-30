@@ -14,12 +14,14 @@ ProtoGraph.Card.toShare.prototype.init = function (options) {
 }
 
 ProtoGraph.Card.toShare.prototype.renderFacebookCard = function (data) {
-  this.mode = 'facebook';
+  this.mode = 'screenshot';
+  this.screenshotMode = 'fb_image';
   generateShareCard.call(this, data);
 }
 
 ProtoGraph.Card.toShare.prototype.renderInstagramCard = function (data) {
-  this.mode = 'instagram';
+  this.mode = 'screenshot';
+  this.screenshotMode = 'instagram_image';
   generateShareCard.call(this, data);
 }
 
@@ -29,7 +31,8 @@ ProtoGraph.Card.toShare.prototype.renderEdit = function (data) {
 }
 
 ProtoGraph.Card.toShare.prototype.renderScreenshot = function (data) {
-  this.mode = 'instagram';
+  this.mode = 'screenshot';
+  this.screenshotMode = 'instagram_image';
   generateShareCard.call(this, data);
 }
 
@@ -40,6 +43,7 @@ function generateShareCard(data) {
       schemaURL={this.options.schema_url}
       optionalConfigURL={this.options.configuration_url}
       optionalConfigSchemaURL={this.options.configuration_schema_url}
+      screenshotMode={this.screenshotMode}
       mode={this.mode}
       ref={(e) => {
         this.containerInstance = this.containerInstance || e;
