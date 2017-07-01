@@ -25,7 +25,7 @@ export default class ShareCard extends React.Component {
   }
 
   exportData() {
-    return document.getElementById('protograph_div').getBoundingClientRect();
+    return document.getElementById('ProtoScreenshot').getBoundingClientRect();
   }
 
   componentDidMount() {
@@ -87,7 +87,7 @@ export default class ShareCard extends React.Component {
       const {cover_image, logo_image, cover_title, styles} = this.getImageParameters();
       return (
         <div>
-          <div id="protograph_div" className="proto-cover-image">
+          <div id="ProtoScreenshot" className="proto-cover-image">
             <img className={`${(this.props.mode === "instagram_image") ? 'proto-cover-insta' : 'proto-cover-fb'}`} src={cover_image}/>
             <div className = "proto-top-div">
               <div className = "proto-top-image">

@@ -21,8 +21,8 @@
     <script src="./lib/js/react-jsonschema-form.js"></script>
 
     <div id="share_div"></div>
-    <script src = "dist/0.0.1/card.min.js"></script>
-    <!-- <script src = "dist/0.0.1/edit-card.min.js"></script> -->
+    <!-- <script src = "dist/0.0.1/card.min.js"></script> -->
+    <script src = "dist/0.0.1/edit-card.min.js"></script>
 
     <script type="text/javascript">
     var x = new ProtoGraph.Card.toShare();
@@ -31,15 +31,15 @@
       data_url: './sample.json',
       schema_url: './formschema.json'
     });
-    // x.renderEdit({
-    //   onLastStep: function() {
-    //       console.log("This is the last step");
-    //   }
-    // });
+    x.renderEdit({
+      onLastStep: function() {
+          console.log("This is the last step");
+      }
+    });
     // x.renderFacebookCard();
     // x.renderInstagramCard();
     // x.getData();
-    x.renderScreenshot();
+    // x.renderScreenshot();
     </script>
   </body>
 </html>
