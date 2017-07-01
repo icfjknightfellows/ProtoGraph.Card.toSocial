@@ -20,15 +20,17 @@ export default class ShareCard extends React.Component {
     if (this.props.schemaJSON) {
       stateVar.schemaJSON = this.props.schemaJSON;
     }
-    console.log(stateVar, this.props,"++++++++++++++++++++++++++++=")
+
     this.state = stateVar;
+  }
+
+  exportData() {
+    return document.getElementById('protograph_div').getBoundingClientRect();
   }
 
   componentDidMount() {
     // get sample json data based on type i.e string or object
-    console.log(this.state.fetchingData, "l;;;;;;;;;;;;;;;;;")
     if (this.state.fetchingData){
-      console.log("ppppppppppppppppppppppppppppppp")
       axios.all([
         axios.get(this.props.dataURL),
         axios.get(this.props.schemaURL)
@@ -38,7 +40,6 @@ export default class ShareCard extends React.Component {
             dataJSON: card.data,
             schemaJSON: schema.data
           });
-          console.log(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
       }));
     }
   }
@@ -50,10 +51,9 @@ export default class ShareCard extends React.Component {
     let styles,
       cover_image,
       cover_title = data.cover_data.cover_title,
-      logo_image = data.cover_data.logo_image.image,
-      mode = this.props.mode !== 'screenshot' ? this.props.mode : this.props.screenshotMode;
+      logo_image = data.cover_data.logo_image.image;
 
-    switch(mode) {
+    switch(this.props.mode) {
       case 'instagram_image':
         cover_image = data.cover_data.instagram_image.image;
         styles = {
@@ -70,12 +70,7 @@ export default class ShareCard extends React.Component {
         }
         break;
     }
-    console.log({
-      cover_title: cover_title,
-      logo_image: logo_image,
-      cover_image: cover_image,
-      styles: styles
-    })
+
     return {
       cover_title: cover_title,
       logo_image: logo_image,
@@ -85,15 +80,14 @@ export default class ShareCard extends React.Component {
 
   }
 
-  renderLaptop() {
+  render() {
     if (this.state.fetchingData){
       return(<div>Loading</div>)
     } else {
       const {cover_image, logo_image, cover_title, styles} = this.getImageParameters();
-      console.log(cover_image, logo_image, cover_title, styles)
       return (
         <div>
-          <div className = "proto-cover-image">
+          <div id="protograph_div" className="proto-cover-image">
             <img className={`${(this.props.mode === "instagram_image") ? 'proto-cover-insta' : 'proto-cover-fb'}`} src={cover_image}/>
             <div className = "proto-top-div">
               <div className = "proto-top-image">
@@ -108,44 +102,6 @@ export default class ShareCard extends React.Component {
           </div>
         </div>
       )
-    }
-  }
-
-  renderScreenshot() {
-    if (this.state.fetchingData){
-      return(<div>Loading</div>)
-    } else {
-      const {cover_image, logo_image, cover_title, styles} = this.getImageParameters();
-      return (
-        <div id="ProtoScreenshot" className = "proto-cover-image">
-          <img className={`${(this.props.screenshotMode === "instagram_image") ? 'proto-cover-insta' : 'proto-cover-fb'}`} src={cover_image}/>
-          <div className = "proto-top-div">
-            <div className = "proto-top-image">
-              { logo_image &&
-                <img className="proto-logo-image" src={logo_image} />
-              }
-            </div>
-            { cover_title &&
-              <div className="proto-quote-title">{cover_title}</div>
-            }
-          </div>
-        </div>
-      )
-    }
-  }
-
-  render() {
-    console.log(this.props.mode)
-    switch(this.props.mode) {
-      case 'fb_image' :
-        return this.renderLaptop();
-        break;
-      case 'instagram_image' :
-        return this.renderLaptop();
-        break;
-      case 'screenshot' :
-        return this.renderScreenshot();
-        break;
     }
   }
 }
