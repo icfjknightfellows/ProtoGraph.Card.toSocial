@@ -3,15 +3,15 @@
   <head>
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>toShare Card</title>
+    <title>toSocial Card</title>
     <link rel="stylesheet" type="text/css" href="card.min.css">
   </head>
   <body>
-    <div id="proto_toShare_card"></div>
+    <div id="proto_toSocial_card"></div>
     <script src="https://d2m6lzru8erw1k.cloudfront.net/lib/oasis.min.js"></script>
     <script src="card.min.js"></script>
     <script type="text/javascript">
-    var x = new ProtoGraph.Card.toShare();
+    var x = new ProtoGraph.Card.toSocial();
     let param = location.search.split('HtmlCast_Unique_Identifier=')[1]
     function get(url) {
       return new Promise(function(resolve, reject) {
@@ -38,7 +38,7 @@
           get('https://3fc38481.ngrok.io/api/v1/view_casts/'+param).then(function (response) {
             let response_object = JSON.parse(response);
             x.init({
-              selector: document.querySelector('#proto_toShare_card'),
+              selector: document.querySelector('#proto_toSocial_card'),
               data_url: response_object.data_url,
               schema_url: response_object.schema_json
             });

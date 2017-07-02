@@ -3,13 +3,13 @@
     "cover_data": {
       "cover_title": "This is a smaple Title",
       "logo_image": {
-        "image": "https://s3.ap-south-1.amazonaws.com/protos.dev/Assets/scroll.png"
+        "image": "https://s3.ap-south-1.amazonaws.com/assets.cdn.protograph/scroll.png"
       },
       "fb_image": {
-        "image": "https://s3.ap-south-1.amazonaws.com/protos.dev/Assets/cover.jpg"
+        "image": "https://s3.ap-south-1.amazonaws.com/assets.cdn.protograph/cover.jpg"
       },
       "instagram_image": {
-        "image": "https://s3.ap-south-1.amazonaws.com/protos.dev/Assets/cover.jpg"
+        "image": "https://s3.ap-south-1.amazonaws.com/assets.cdn.protograph/cover.jpg"
       },
       "facebook_message": "",
       "twitter_message": "",

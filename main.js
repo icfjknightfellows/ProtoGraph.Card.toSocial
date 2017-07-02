@@ -5,30 +5,30 @@ import ShareCard from './src/js/share_card.jsx';
 window.ProtoGraph = window.ProtoGraph || {};
 window.ProtoGraph.Card = window.ProtoGraph.Card || {};
 
-ProtoGraph.Card.toShare = function () {
+ProtoGraph.Card.toSocial = function () {
   this.cardType = 'ShareCard';
 }
 
-ProtoGraph.Card.toShare.prototype.init = function (options) {
+ProtoGraph.Card.toSocial.prototype.init = function (options) {
   this.options = options;
 }
 
-ProtoGraph.Card.toShare.prototype.renderFacebookCard = function (data) {
+ProtoGraph.Card.toSocial.prototype.renderFacebookCard = function (data) {
   this.mode = 'fb_image';
   generateShareCard.call(this, data);
 }
 
-ProtoGraph.Card.toShare.prototype.renderInstagramCard = function (data) {
+ProtoGraph.Card.toSocial.prototype.renderInstagramCard = function (data) {
   this.mode = 'instagram_image';
   generateShareCard.call(this, data);
 }
 
-ProtoGraph.Card.toShare.prototype.renderScreenshot = function (data) {
+ProtoGraph.Card.toSocial.prototype.renderScreenshot = function (data) {
   this.mode = 'instagram_image';
   generateShareCard.call(this, data);
 }
 
-ProtoGraph.Card.toShare.prototype.getData = function (data) {
+ProtoGraph.Card.toSocial.prototype.getData = function (data) {
   return this.containerInstance.exportData();
 }
 

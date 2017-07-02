@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import EditShareCard from './src/js/edit_share_card.jsx';
 
-ProtoGraph.Card.toShare.prototype.getData = function (data) {
+ProtoGraph.Card.toSocial.prototype.getData = function (data) {
   return this.containerInstance.exportData();
 }
 
-ProtoGraph.Card.toShare.prototype.renderEdit = function (data) {
+ProtoGraph.Card.toSocial.prototype.renderEdit = function (data) {
   this.mode = 'edit';
   generateShareCard.call(this, data);
 }
