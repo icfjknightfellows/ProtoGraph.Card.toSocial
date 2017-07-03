@@ -14,6 +14,7 @@ export default class EditShareCard extends React.Component {
       schemaJSON: undefined
     }
     this.handleClick = this.handleClick.bind(this);
+    this.publishCard = this.publishCard.bind(this);
   }
 
   handleClick(e){
@@ -44,10 +45,6 @@ export default class EditShareCard extends React.Component {
           dataJSON: card.data,
           schemaJSON: schema.data
         });
-
-        if(this.props.editData && (typeof this.props.editData.onLastStep === "function")) {
-          this.props.editData.onLastStep();
-        }
       }));
     }
   }
@@ -85,6 +82,11 @@ export default class EditShareCard extends React.Component {
     });
   }
 
+  publishCard(e) {
+    if (typeof this.props.onPublishCallback === "function") {
+      this.props.onPublishCallback();
+    }
+  }
 
   render() {
     if (this.state.fetchingData) {
@@ -94,11 +96,17 @@ export default class EditShareCard extends React.Component {
         <div>
           <div className = "protograph_col_6 protograph-edit-form" id="proto_share_form_div">
             <JSONSchemaForm
-              schema = {this.state.schemaJSON}
-              onChange = {((e) => this.onChangeHandler(e))}
-              formData = {this.state.dataJSON}
+              schema={this.state.schemaJSON}
+              onChange={((e) => this.onChangeHandler(e))}
+              onSubmit={this.publishCard}
+              formData={this.state.dataJSON}
             >
-              <button type="submit" className="default-button protograph-primary-button protograph-submit-button">Publish</button>
+              <button
+                type="submit"
+                className="default-button protograph-primary-button protograph-submit-button"
+              >
+                Publish
+              </button>
             </JSONSchemaForm>
           </div>
           <div className = "protograph_col_6 proto-share-card-div" id="proto_share_card_div">

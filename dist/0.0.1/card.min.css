@@ -101,7 +101,7 @@
 }
 
 .protograph-submit-button {
-  display: none;
+  /*display: none;*/
 }
 
 @media only screen and (max-width: 500px){
