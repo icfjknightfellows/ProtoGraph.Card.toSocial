@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Share Card</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./dist/0.0.1/card.min.css">
+    <link rel="stylesheet" type="text/css" href="https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/cards/ProtoGraph.Card.toSocial/dist/0.0.1/card.min.css">
     <!-- <link rel="stylesheet" type="text/css" href="./src/css/style.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" />
     <link rel="stylesheet" type="text/css" href="./lib/css/react-jsonschema-form.css">
@@ -21,25 +21,25 @@
     <script src="./lib/js/react-jsonschema-form.js"></script>
 
     <div id="share_div"></div>
-    <!-- <script src = "dist/0.0.1/card.min.js"></script> -->
-    <script src = "dist/0.0.1/edit-card.min.js"></script>
+    <script src = "https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/cards/ProtoGraph.Card.toSocial/dist/0.0.1/card.min.js"></script>
+    <!-- <script src = "dist/0.0.1/edit-card.min.js"></script> -->
 
     <script type="text/javascript">
     var x = new ProtoGraph.Card.toSocial();
     x.init({
       selector: document.querySelector('#share_div'),
-      data_url: './sample.json',
-      schema_url: './formschema.json'
+      data_url: 'https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/Datacasts/e9bdad9cd22e87703febe657.json',
+      schema_url: 'https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/Schemas/toSocial/0.0.1/schema.json'
     });
-    x.renderEdit({
-      onLastStep: function() {
-          console.log("This is the last step");
-      }
-    });
+    // x.renderEdit({
+    //   onLastStep: function() {
+    //       console.log("This is the last step");
+    //   }
+    // });
     // x.renderFacebookCard();
     // x.renderInstagramCard();
     // x.getData();
-    // x.renderScreenshot();
+    x.renderScreenshot();
     </script>
   </body>
 </html>
