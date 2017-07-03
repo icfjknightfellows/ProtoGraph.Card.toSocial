@@ -93,50 +93,59 @@ export default class EditShareCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       return (
-        <div>
-          <div className = "protograph_col_6 protograph-edit-form" id="proto_share_form_div">
-            <JSONSchemaForm
-              schema={this.state.schemaJSON}
-              onChange={((e) => this.onChangeHandler(e))}
-              onSubmit={this.publishCard}
-              formData={this.state.dataJSON}
-            >
-              <button
-                type="submit"
-                className="default-button protograph-primary-button protograph-submit-button"
-              >
-                Publish
-              </button>
-            </JSONSchemaForm>
-          </div>
-          <div className = "protograph_col_6 proto-share-card-div" id="proto_share_card_div">
-            <div className="ui compact menu">
-              <a className={`item ${this.state.type === 'fb_image' ? 'active' : ''}`}
-                id="fb_image"
-                onClick={this.handleClick}
-              >
-                <i className="facebook square icon"></i>
-              </a>
-              <a className={`item ${this.state.type === 'twitter' ? 'active' : ''}`}
-                id="twitter"
-                onClick={this.handleClick}
-              >
-                <i className="twitter square icon"></i>
-              </a>
-              <a className={`item ${this.state.type === 'instagram_image' ? 'active' : ''}`}
-                id="instagram_image"
-                onClick={this.handleClick}
-              >
-                <i className="instagram icon"></i>
-              </a>
-            </div>
-
-            <div className = "preview">
-              <ShareCard
-                mode={this.state.type}
-                dataJSON={this.state.dataJSON}
-                schemaJSON={this.state.schemaJSON}
-              />
+        <div className="proto-container">
+          <div className="ui grid form-layout">
+            <div className="row">
+              <div className="four wide column proto-card-form">
+                <div>
+                  <div className="section-title-text">Fill the form</div>
+                  <div className="ui label proto-pull-right">
+                    ToSocial
+                  </div>
+                </div>
+                <JSONSchemaForm
+                  schema={this.state.schemaJSON}
+                  onChange={((e) => this.onChangeHandler(e))}
+                  onSubmit={this.publishCard}
+                  formData={this.state.dataJSON}
+                >
+                  <button
+                    type="submit"
+                    className="default-button protograph-primary-button protograph-submit-button"
+                  >
+                    Publish
+                  </button>
+                </JSONSchemaForm>
+              </div>
+              <div className="twelve wide column proto-card-preview proto-share-card-div">
+                <div className="ui compact menu">
+                  <a className={`item ${this.state.type === 'fb_image' ? 'active' : ''}`}
+                    id="fb_image"
+                    onClick={this.handleClick}
+                  >
+                    <i className="facebook square icon"></i>
+                  </a>
+                  <a className={`item ${this.state.type === 'twitter' ? 'active' : ''}`}
+                    id="twitter"
+                    onClick={this.handleClick}
+                  >
+                    <i className="twitter square icon"></i>
+                  </a>
+                  <a className={`item ${this.state.type === 'instagram_image' ? 'active' : ''}`}
+                    id="instagram_image"
+                    onClick={this.handleClick}
+                  >
+                    <i className="instagram icon"></i>
+                  </a>
+                </div>
+                <div className="preview">
+                  <ShareCard
+                    mode={this.state.type}
+                    dataJSON={this.state.dataJSON}
+                    schemaJSON={this.state.schemaJSON}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
