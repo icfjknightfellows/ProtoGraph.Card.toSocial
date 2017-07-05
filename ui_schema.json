@@ -1,0 +1,29 @@
+{
+  "data": {
+    "cover_data": {
+      "logo_image": {
+        "image": {
+          "ui:help": "Hint: 1:1 aspect ratio."
+        }
+      },
+      "cover_title": {
+        "ui:help": "Hint: Politics, Sports, Entertainment, Nation."
+      },
+      "fb_image": {
+        "image": {
+          "ui:help": "Hint: 2:1 aspect ratio."
+        }
+      },
+      "instagram_image": {
+        "image": {
+          "ui:help": "Hint: 1:1 aspect ratio."
+        }
+      },
+      "twitter_message": {
+        "image": {
+          "ui:help": "Hint: 140 characters."
+        }
+      }
+    }
+  }
+}

@@ -12,11 +12,11 @@
           "title": "",
           "id": "/properties/cover_data",
           "properties": {
-            "cover_title": {
+            "post_url": {
+              "id": "/properties/data/properties/cover_data/properties/post_url",
+              "title": "Post URL",
               "type": "string",
-              "title": "Cover Title",
-              "description": "",
-              "id": "/properties/data/properties/cover_data/properties/cover_title"
+              "pattern": "((?:https?\\:\/\/|www\\.)(?:[-a-z0-9]+\\.)*[-a-z0-9]+.*)"
             },
             "logo_image": {
               "title": "",
@@ -26,10 +26,16 @@
                   "type": "string",
                   "format": "data-url",
                   "id": "/properties/data/properties/cover_data/properties/logo_image",
-                  "title": "Your company logo",
+                  "title": "Upload square logo",
                   "description": ""
                 }
               }
+            },
+            "cover_title": {
+              "type": "string",
+              "title": "Story Genre",
+              "description": "",
+              "id": "/properties/data/properties/cover_data/properties/cover_title"
             },
             "fb_image": {
               "type": "object",
@@ -77,12 +83,6 @@
               "title": "Instagram Message",
               "type": "string",
               "format": "textarea"
-            },
-            "post_url": {
-              "id": "/properties/data/properties/cover_data/properties/post_url",
-              "title": "Post URL",
-              "type": "string",
-              "pattern": "((?:https?\\:\/\/|www\\.)(?:[-a-z0-9]+\\.)*[-a-z0-9]+.*)"
             }
           },
           "required": [

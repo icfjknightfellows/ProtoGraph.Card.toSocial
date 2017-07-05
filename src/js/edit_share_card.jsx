@@ -11,7 +11,8 @@ export default class EditShareCard extends React.Component {
       fetchingData: true,
       type: "fb_image",
       dataJSON: {},
-      schemaJSON: undefined
+      schemaJSON: undefined,
+      uiSchemaJSON: undefined
     }
     this.handleClick = this.handleClick.bind(this);
     this.publishCard = this.publishCard.bind(this);
@@ -32,18 +33,30 @@ export default class EditShareCard extends React.Component {
     };
   }
 
+  transformErrors(errors) {
+    return errors.map(error => {
+      if (error.name === "pattern" && error.schema === '/properties/data/properties/cover_data/properties/post_url') {
+        error.message = "invalid Post URL"
+      }
+      return error;
+    });
+  }
+
+
   componentDidMount() {
     // get sample json data based on type i.e string or object
     if (this.state.fetchingData){
       axios.all([
         axios.get(this.props.dataURL),
-        axios.get(this.props.schemaURL)
-      ]).then(axios.spread((card, schema) => {
+        axios.get(this.props.schemaURL),
+        axios.get(this.props.uiSchemaURL)
+      ]).then(axios.spread((card, schema, uiSchema) => {
 
         this.setState({
           fetchingData: false,
           dataJSON: card.data,
-          schemaJSON: schema.data
+          schemaJSON: schema.data,
+          uiSchemaJSON: uiSchema.data
         });
       }));
     }
@@ -108,6 +121,8 @@ export default class EditShareCard extends React.Component {
                   onChange={((e) => this.onChangeHandler(e))}
                   onSubmit={this.publishCard}
                   formData={this.state.dataJSON}
+                  uiSchema={this.state.uiSchemaJSON}
+                  transformErrors={this.transformErrors}
                 >
                   <button
                     type="submit"

@@ -28,8 +28,9 @@
     var x = new ProtoGraph.Card.toSocial();
     x.init({
       selector: document.querySelector('#share_div'),
-      data_url: 'https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/Datacasts/e9bdad9cd22e87703febe657.json',
-      schema_url: 'https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/Schemas/toSocial/0.0.1/schema.json'
+      data_url: './sample.json',
+      schema_url: './formschema.json',
+      ui_schema_url: './ui_schema.json'
     });
     x.renderEdit();
     // x.renderFacebookCard();
