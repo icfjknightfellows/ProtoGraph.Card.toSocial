@@ -3,7 +3,7 @@
     "cover_data": {
       "logo_image": {
         "image": {
-          "ui:help": "Hint: 1:1 aspect ratio."
+          "ui:help": "Hint: 1:1 aspect ratio. Image file size should not exceed 500kB."
         }
       },
       "cover_title": {
@@ -11,12 +11,12 @@
       },
       "fb_image": {
         "image": {
-          "ui:help": "Hint: 2:1 aspect ratio."
+          "ui:help": "Hint: 2:1 aspect ratio. Image file size should not exceed 500kB."
         }
       },
       "instagram_image": {
         "image": {
-          "ui:help": "Hint: 1:1 aspect ratio."
+          "ui:help": "Hint: 1:1 aspect ratio. Image file size should not exceed 500kB."
         }
       },
       "twitter_message": {
