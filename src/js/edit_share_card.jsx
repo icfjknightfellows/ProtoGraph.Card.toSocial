@@ -11,6 +11,7 @@ export default class EditShareCard extends React.Component {
       fetchingData: true,
       type: "fb_image",
       dataJSON: {},
+      publishing: false,
       schemaJSON: undefined,
       uiSchemaJSON: undefined
     }
@@ -51,7 +52,6 @@ export default class EditShareCard extends React.Component {
         axios.get(this.props.schemaURL),
         axios.get(this.props.uiSchemaURL)
       ]).then(axios.spread((card, schema, uiSchema) => {
-
         this.setState({
           fetchingData: false,
           dataJSON: card.data,
@@ -97,7 +97,11 @@ export default class EditShareCard extends React.Component {
 
   publishCard(e) {
     if (typeof this.props.onPublishCallback === "function") {
-      this.props.onPublishCallback();
+      this.setState({ publishing: true });
+      let publishCallback = this.props.onPublishCallback();
+      publishCallback.then((message) => {
+        this.setState({ publishing: false });
+      });
     }
   }
 
@@ -126,7 +130,7 @@ export default class EditShareCard extends React.Component {
                 >
                   <button
                     type="submit"
-                    className="default-button protograph-primary-button protograph-submit-button"
+                    className={`${this.state.publishing ? 'ui primary loading disabled button' : ''} default-button protograph-primary-button protograph-submit-button`}
                   >
                     Publish
                   </button>
