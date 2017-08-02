@@ -12,6 +12,7 @@ export default class EditShareCard extends React.Component {
       type: "fb_image",
       dataJSON: {},
       publishing: false,
+      errorOnFetchingData: undefined,
       schemaJSON: undefined,
       uiSchemaJSON: undefined
     }
@@ -58,7 +59,12 @@ export default class EditShareCard extends React.Component {
           schemaJSON: schema.data,
           uiSchemaJSON: uiSchema.data
         });
-      }));
+      }))
+      .catch((error) => {
+        this.setState({
+          errorOnFetchingData: true
+        })
+      });
     }
   }
 
@@ -107,7 +113,21 @@ export default class EditShareCard extends React.Component {
 
   render() {
     if (this.state.fetchingData) {
-      return(<div>Loading</div>)
+      return(
+        <div className="protograph-loader-container">
+          {
+            !this.state.errorOnFetchingData ?
+              "Loading"
+            :
+              <div className="ui negative message">
+                <div className="header">
+                  Failed to load resources
+                </div>
+                <p>Try to clear your browser cache and refresh the page. <a href="#" onClick={(e) => {location.reload(true)}}>Reload</a></p>
+              </div>
+          }
+        </div>
+      )
     } else {
       return (
         <div className="proto-container">
