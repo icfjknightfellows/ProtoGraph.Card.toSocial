@@ -67,6 +67,9 @@
     let view_cast_id = findGetParameter('view_cast_id'),
       schema_id = findGetParameter('schema_id');
 
+    if (siteId && view_cast_id) {
+      _paq.push(['trackEvent', 'toSocial', 'page_view', view_cast_id]);
+    }
 
     var ReceiverConsumer = Oasis.Consumer.extend({
       requests: {
